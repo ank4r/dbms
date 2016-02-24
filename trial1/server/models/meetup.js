@@ -1,5 +1,10 @@
 var mongoose = require('mongoose');
 
-module.exports = mongoose.model('Meetup', {
-  name: String
+var loginSchema = mongoose.Schema({
+	id : String,
+	first_name : String,
+	last_name : String,
+	password : String
 });
+
+module.exports = mongoose.model(loginSchema);
