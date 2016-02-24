@@ -4,7 +4,7 @@ var express           = require('express'),
     mongoose          = require('mongoose'),
     meetupsController = require('./server/controllers/meetups-controller');
 
-mongoose.connect('mongodb://localhost:27017/trial1');
+mongoose.connect('mongodb://10.42.0.46:27017/trial1');
 
 app.use(bodyParser());
 
