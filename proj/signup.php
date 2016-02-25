@@ -1,0 +1,162 @@
+<?php
+   	if($_POST["password"]){
+   	if(strcmp($_POST["fname"],"FullName")==0||strcmp($_POST["lname"],"LastName")==0||strcmp($_POST["userid"],"UserId")==0||strcmp($_POST["password"],"Password")==0||!$_POST["age"]||!$_POST["sex"]||strcmp($_POST["bday"],"YYYY-MM-DD")==0)
+   	{
+   		echo "Please fill all the details!!";
+   	}
+   	else{
+   	$dbhost = 'localhost:3036';
+   	$dbuser = 'root';
+   	$dbpass = 'naruto';
+   	$conn = mysql_connect($dbhost, $dbuser, $dbpass);
+   
+    if(! $conn ) {
+      die('Could not connect: ' . mysql_error());
+   	}
+   //mysql_select_db('dbms');
+   	//echo 'Connected successfully';
+   	if(strcmp($_POST["mname"],"MiddleName")==0){
+   	$sql='INSERT INTO student '.
+   	'SET fname=\''.$_POST["fname"].
+   	'\',lname=\''.$_POST["lname"].
+ 	'\',userid=\''.$_POST["userid"].
+ 	'\',pwd=\''.$_POST["password"].
+   	'\',age='.$_POST["age"].
+   	',sex=\''.$_POST["sex"].
+   	'\',bday=\''.$_POST["bday"].'\'';
+   }
+   else{
+    $sql='INSERT INTO student '.
+   	'SET fname=\''.$_POST["fname"].
+   	'\',mname=\''.$_POST["mname"].
+   	'\',lname=\''.$_POST["lname"].
+ 	'\',userid=\''.$_POST["userid"].
+ 	'\',pwd=\''.$_POST["password"].
+   	'\',age='.$_POST["age"].
+   	',sex=\''.$_POST["sex"].
+   	'\',bday=\''.$_POST["bday"].'\'';
+   }
+   mysql_select_db('dbms');
+   $retval=mysql_query($sql,$conn);
+   if(! $retval ) {
+      die('Could not create table: ' . mysql_error());
+   }
+   
+   //echo "\nAccount created successfully\n";
+ 	header("Location:db_1.php");
+   mysql_close($conn);
+   //print "<br>".$sql."<br>";
+   //echo "hello";
+   exit();
+	}
+}
+?>
+
+<html>
+<head>
+<meta charset="utf-8">
+<title>Login Page</title>
+<style type="text/css">
+body {
+background-color: #f4f4f4;
+color: #5a5656;
+font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+font-size: 16px;
+line-height: 1.5em;
+}
+a { text-decoration: none; }
+h1 { font-size: 1em; }
+h1, p {
+margin-bottom: 10px;
+}
+strong {
+font-weight: bold;
+}
+.uppercase { text-transform: uppercase; }
+
+/* ---------- LOGIN ---------- */
+#login {
+margin: 50px auto;
+width: 300px;
+}
+form fieldset input[type="text"] ,input[type="number"] ,input[type="date"]{
+background-color: #e5e5e5;
+border: none;
+border-radius: 3px;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+color: #5a5656;
+font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+font-size: 14px;
+height: 50px;
+outline: none;
+padding: 0px 10px;
+width: 280px;
+-webkit-appearance:none;
+}
+form fieldset input[type="submit"] {
+background-color: #008dde;
+border: none;
+border-radius: 3px;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+color: #f4f4f4;
+cursor: pointer;
+font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+height: 50px;
+text-transform: uppercase;
+width: 300px;
+-webkit-appearance:none;
+}
+form fieldset a {
+color: #5a5656;
+font-size: 10px;
+}
+select {
+   background-color: #e5e5e5;
+border: none;
+border-radius: 3px;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+color: #5a5656;
+font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+font-size: 14px;
+height: 50px;
+outline: none;
+padding: 0px 10px;
+width: 280px;
+-webkit-appearance:none;
+z-index: 1;
+}
+form fieldset a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div id="login">
+<h1><strong>Welcome</strong> Please signup.</h1>
+<form action="<?php $_PHP_SELF ?>" method="post">
+<fieldset>
+<p><input type="text" name="fname" required value="FirstName" onBlur="if(this.value=='')this.value='FirstName'" onFocus="if(this.value=='FirstName')this.value='' "></p>
+<p><input type="text" name="mname" required value="MiddleName" onBlur="if(this.value=='')this.value='MiddleName'" onFocus="if(this.value=='MiddleName')this.value='' "></p>
+<p><input type="text" name="lname" required value="LastName" onBlur="if(this.value=='')this.value='LastName'" onFocus="if(this.value=='LastName')this.value='' "></p>
+<p><input type="text" name="userid" required value="UserId" onBlur="if(this.value=='')this.value='UserId'" onFocus="if(this.value=='UserId')this.value='' "></p>
+<p><input type="text" name="password" required value="Password" onBlur="if(this.value=='')this.value='Password" onFocus="if(this.value=='Password')this.value='' "></p>
+<p>Age: </p><p><input type="number" name="age" required value="Age" onBlur="if(this.value=='')this.value='Age'" onFocus="if(this.value=='Age')this.value='' "></p>
+<p>sex: </p>
+<select name = "sex">
+    <option value = "M">
+       Male
+    </option>
+ 
+    <option value = "F">
+       Female
+    </option>
+ </select>
+<p>Birth Date: </p>
+<p><input type="date" name="bday" required value="YYYY-MM-DD" onBlur="if(this.value=='')this.value='YYYY-MM-DD'" onFocus="if(this.value=='YYYY-MM-DD')this.value='' "></p>
+<p><input type="submit" value="Create Account"></p>
+</fieldset>
+</form>
+</div> <!-- end login -->
+</body>
+</html>
