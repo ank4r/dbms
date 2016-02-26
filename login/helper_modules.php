@@ -74,6 +74,7 @@ function createLecturesTable()
 
    endDatabaseConnection($conn);
 }
+
 function dropMembersTable()
 {
    $conn=connectToDatabase();

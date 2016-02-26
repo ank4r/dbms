@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 ﻿<!DOCTYPE html>
+=======
+﻿<?php
+   include('../login/session.php');
+   include('../login/info.php');
+?>
+<!DOCTYPE html>
+>>>>>>> 1d240e850cec196d1f588b35c84ab56b95bba5a9
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
       <meta charset="utf-8" />
@@ -302,7 +310,11 @@
 			 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
+<<<<<<< HEAD
                             Forms Page <small>Best form elements.</small>
+=======
+                            Upload Course Content
+>>>>>>> 1d240e850cec196d1f588b35c84ab56b95bba5a9
                         </h1>
                     </div>
                 </div> 
@@ -310,6 +322,7 @@
               <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
+<<<<<<< HEAD
                         <div class="panel-heading">
                             Basic Form Elements
                         </div>
@@ -373,20 +386,44 @@
                                             <div class="radio">
                                                 <label>
                                                     <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">Radio 1
+=======
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <form role="form" action="submit.php" method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label>File input</label>
+                                            <input type="file" name="fileToUpload" id="fileToUpload" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Type Of Content</label>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="lecture" checked="">Lecture
+>>>>>>> 1d240e850cec196d1f588b35c84ab56b95bba5a9
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label>
+<<<<<<< HEAD
                                                     <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Radio 2
+=======
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="assignment">Assignment
+>>>>>>> 1d240e850cec196d1f588b35c84ab56b95bba5a9
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label>
+<<<<<<< HEAD
                                                     <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Radio 3
+=======
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="quiz">Quiz
+>>>>>>> 1d240e850cec196d1f588b35c84ab56b95bba5a9
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="form-group">
+<<<<<<< HEAD
                                             <label>Inline Radio Buttons</label>
                                             <label class="radio-inline">
                                                 <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked="">1
@@ -490,6 +527,29 @@
                                     </form>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
+=======
+                                            <label>Selects</label>
+                                            <select class="form-control">
+                                                <?php 
+                                                  include('info.php');
+                                                  $connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
+                                                  mysql_select_db('dbms');
+                                                  $table=mysql_query('SELECT * FROM courset WHERE facID=1 ');
+                                                  while($row=mysql_fetch_array($table))
+                                                  {
+                                                      $number=$row['id'];
+                                                      $smark=$row['facID'];
+                                                      $smark1=$row['courseID'];
+                                                  ?>
+                                                  <option><?php echo $smark1 ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-default" name="submit">Submit Button</button>
+                                        <button type="reset" class="btn btn-default">Reset Button</button>
+                                    </form>
+                                </div>
+>>>>>>> 1d240e850cec196d1f588b35c84ab56b95bba5a9
                             </div>
                             <!-- /.row (nested) -->
                         </div>

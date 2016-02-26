@@ -9,7 +9,6 @@ include 'helper_modules.php';
    	else{
    
    	$conn = connectToDatabase();
-   
    	if(!$_POST["mname"])
     {
       

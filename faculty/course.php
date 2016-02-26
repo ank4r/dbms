@@ -323,7 +323,10 @@
                                     </thead>
                                     <tbody>
                                         <?php 
+<<<<<<< HEAD
                                           include('info.php');
+=======
+>>>>>>> 1d240e850cec196d1f588b35c84ab56b95bba5a9
                                           $connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
                                           mysql_select_db('dbms');
                                           $table=mysql_query('SELECT * FROM courset WHERE facID=1 ');
