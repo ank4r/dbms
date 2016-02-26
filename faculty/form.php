@@ -1,12 +1,8 @@
-<<<<<<< HEAD
-﻿<!DOCTYPE html>
-=======
-﻿<?php
+<?php
    include('../login/session.php');
    include('../login/info.php');
 ?>
 <!DOCTYPE html>
->>>>>>> 1d240e850cec196d1f588b35c84ab56b95bba5a9
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
       <meta charset="utf-8" />
@@ -20,6 +16,18 @@
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
      <!-- Google Fonts-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <script type="text/javascript">
+        function show() { document.getElementById('area').style.display = 'block'; 
+                          document.getElementById('area1').style.display = 'block';
+                          document.getElementById('area2').style.display = 'block';
+                          document.getElementById('area3').style.display = 'block';
+                            }
+        function hide() { document.getElementById('area').style.display = 'none';
+                          document.getElementById('area1').style.display = 'none';
+                          document.getElementById('area2').style.display = 'none';
+                          document.getElementById('area3').style.display = 'none';
+                         }
+    </script>
 </head>
 <body>
     <div id="wrapper">
@@ -265,7 +273,7 @@
                         <a href="table.php"><i class="fa fa-table"></i> Responsive Tables</a>
                     </li>
                     <li>
-                        <a href="form.php" class="active-menu"><i class="fa fa-edit"></i> Forms </a>
+                        <a href="form.php" class="active-menu"><i class="fa fa-edit"></i> Upload Content </a>
                     </li>
 
 
@@ -297,7 +305,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="empty.php"><i class="fa fa-fw fa-file"></i> Empty Page</a>
+                        <a href="course.php"><i class="fa fa-fw fa-file"></i> Courses Teaching</a>
                     </li>
                 </ul>
 
@@ -310,11 +318,7 @@
 			 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
-<<<<<<< HEAD
-                            Forms Page <small>Best form elements.</small>
-=======
                             Upload Course Content
->>>>>>> 1d240e850cec196d1f588b35c84ab56b95bba5a9
                         </h1>
                     </div>
                 </div> 
@@ -322,71 +326,6 @@
               <div class="row">
                 <div class="col-lg-12">
                     <div class="panel panel-default">
-<<<<<<< HEAD
-                        <div class="panel-heading">
-                            Basic Form Elements
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form role="form">
-                                        <div class="form-group">
-                                            <label>Text Input</label>
-                                            <input class="form-control">
-                                            <p class="help-block">Example block-level help text here.</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Text Input with Placeholder</label>
-                                            <input class="form-control" placeholder="Enter text">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Static Control</label>
-                                            <p class="form-control-static">email@example.com</p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>File input</label>
-                                            <input type="file">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Text area</label>
-                                            <textarea class="form-control" rows="3"></textarea>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Checkboxes</label>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 1
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 2
-                                                </label>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" value="">Checkbox 3
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Inline Checkboxes</label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">1
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">2
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Radio Buttons</label>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">Radio 1
-=======
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
@@ -399,139 +338,32 @@
                                             <label>Type Of Content</label>
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="lecture" checked="">Lecture
->>>>>>> 1d240e850cec196d1f588b35c84ab56b95bba5a9
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="lecture" checked="" onclick="show();">Lecture
+                                                    <br/>
+                                                    <input type="url" id="area" name="area" placeholder="video lecture url"> 
+                                                    <br/>
+                                                    <input type="text" id="area1" name="area1" placeholder="Topic"> 
+                                                    <br/>
+                                                    <input type="text" id="area2" name="area2" placeholder="Sub-Topic"> 
+                                                    <br/>
+                                                    <textarea id="area3" name="area3" placeholder="Lecture Transcription" cols="50" rows="5"></textarea>
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label>
-<<<<<<< HEAD
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">Radio 2
-=======
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="assignment">Assignment
->>>>>>> 1d240e850cec196d1f588b35c84ab56b95bba5a9
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="assignment" onclick="hide();">Assignment
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label>
-<<<<<<< HEAD
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">Radio 3
-=======
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="quiz">Quiz
->>>>>>> 1d240e850cec196d1f588b35c84ab56b95bba5a9
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="quiz" onclick="hide();">Quiz
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="form-group">
-<<<<<<< HEAD
-                                            <label>Inline Radio Buttons</label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline1" value="option1" checked="">1
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline2" value="option2">2
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="optionsRadiosInline" id="optionsRadiosInline3" value="option3">3
-                                            </label>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Selects</label>
+                                            <label>Selects Course</label>
                                             <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Multiple Selects</label>
-                                            <select multiple="" class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                        <button type="submit" class="btn btn-default">Submit Button</button>
-                                        <button type="reset" class="btn btn-default">Reset Button</button>
-                                    </form>
-                                </div>
-                                <!-- /.col-lg-6 (nested) -->
-                                <div class="col-lg-6">
-                                    <h4>Disabled Form States</h4>
-                                    <form role="form">
-                                        <fieldset disabled="">
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled input</label>
-                                                <input class="form-control" id="disabledInput" type="text" placeholder="Disabled input" disabled="">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="disabledSelect">Disabled select menu</label>
-                                                <select id="disabledSelect" class="form-control">
-                                                    <option>Disabled select</option>
-                                                </select>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox">Disabled Checkbox
-                                                </label>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary">Disabled Button</button>
-                                        </fieldset>
-                                    </form>
-                                    <h4>Form Validation States</h4>
-                                    <form role="form">
-                                        <div class="form-group has-success">
-                                            <label class="control-label" for="inputSuccess">Input with success</label>
-                                            <input type="text" class="form-control" id="inputSuccess">
-                                        </div>
-                                        <div class="form-group has-warning">
-                                            <label class="control-label" for="inputWarning">Input with warning</label>
-                                            <input type="text" class="form-control" id="inputWarning">
-                                        </div>
-                                        <div class="form-group has-error">
-                                            <label class="control-label" for="inputError">Input with error</label>
-                                            <input type="text" class="form-control" id="inputError">
-                                        </div>
-                                    </form>
-                                    <h4>Input Groups</h4>
-                                    <form role="form">
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">@</span>
-                                            <input type="text" class="form-control" placeholder="Username">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon"><i class="fa fa-eur"></i>
-                                            </span>
-                                            <input type="text" class="form-control" placeholder="Font Awesome Icon">
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon">$</span>
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-addon">.00</span>
-                                        </div>
-                                        <div class="form-group input-group">
-                                            <input type="text" class="form-control">
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-default" type="button"><i class="fa fa-search"></i>
-                                                </button>
-                                            </span>
-                                        </div>
-                                    </form>
-                                </div>
-                                <!-- /.col-lg-6 (nested) -->
-=======
-                                            <label>Selects</label>
-                                            <select class="form-control">
-                                                <?php 
-                                                  include('info.php');
+                                                <?php                                                   
                                                   $connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
                                                   mysql_select_db('dbms');
                                                   $table=mysql_query('SELECT * FROM courset WHERE facID=1 ');
@@ -542,14 +374,15 @@
                                                       $smark1=$row['courseID'];
                                                   ?>
                                                   <option><?php echo $smark1 ?></option>
-                                                <?php } ?>
+                                                <?php }
+                                                mysql_close();
+                                                ?>
                                             </select>
                                         </div>
                                         <button type="submit" class="btn btn-default" name="submit">Submit Button</button>
                                         <button type="reset" class="btn btn-default">Reset Button</button>
                                     </form>
                                 </div>
->>>>>>> 1d240e850cec196d1f588b35c84ab56b95bba5a9
                             </div>
                             <!-- /.row (nested) -->
                         </div>
@@ -559,7 +392,6 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-			<footer><p>All right reserved. Template by: <a href="http://webthemez.com">WebThemez</a></p></footer>
 			</div>
              <!-- /. PAGE INNER  -->
             </div>

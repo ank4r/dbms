@@ -44,7 +44,6 @@ function createMembersTable()
    else{
       echo "Created Members Table successfully";
    }
-
    endDatabaseConnection($conn);
 } 
 
@@ -234,7 +233,5 @@ function createCoursesTable()
 
    endDatabaseConnection();
 }
-
-
 
 ?>

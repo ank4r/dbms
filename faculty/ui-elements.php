@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿<?php
+    include('../login/session.php');
+    include('../login/info.php');
+    $page = 1;
+    if(isset($_POST['select_course'])){
+        $page = $_POST['select_course'];
+    }
+?>
+
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
       <meta charset="utf-8" />
@@ -302,8 +311,28 @@
 			 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
-                            UI Elements <small>This is your UI elements section</small>
+                            Course Query Forum
                         </h1>
+                        <label>Selects Course</label>
+                        <form name="myform1" action="" method="post">
+                            <select name="select_course" id="select_course" onchange="this.form.submit()">
+                                
+                                <?php 
+                                  $connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
+                                  mysql_select_db('dbms');
+                                  $table=mysql_query('SELECT * FROM courset where courseID');
+                                  while($row=mysql_fetch_array($table))
+                                  {
+                                      $number=$row['id'];
+                                      $smark=$row['facID'];
+                                      $smark1=$row['courseID'];
+                                  ?>
+                                  <option><?php echo $smark1 ?></option>
+                                <?php }
+                                mysql_close();
+                                ?>
+                            </select>
+                        </form>
                     </div>
                 </div> 
                  <!-- /. ROW  -->
@@ -314,23 +343,31 @@
 			  <div class="col-md-12">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-				 Messages
+				 Queries And Suggestions
 				</div>        
 							  
-							<div class="panel-body"> 
-								<div class="alert alert-success">
-									<strong>Well done!</strong> You successfully read this important alert message.
-								</div>
-								<div class="alert alert-info">
-									<strong>Heads up!</strong> This alert needs your attention, but it's not super important.
-								</div>
-								<div class="alert alert-warning">
-									<strong>Warning!</strong> Best check yo self, you're not looking too good.
-								</div>
-								<div class="alert alert-danger">
-									<strong>Oh snap!</strong> Change a few things up and try submitting again.
-								</div>
-							</div>
+							
+                                    <?php 
+                                      $connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
+                                      mysql_select_db('dbms');
+
+                                      $table=mysql_query('SELECT * FROM coursequery where courseID=1');
+                                      while($row=mysql_fetch_array($table))
+                                      {
+                                          $number=$row['courseID'];
+                                          $smark=$row['userID'];
+                                          $smark1=$row['comment'];
+                                      ?>
+                                    <div class="panel-body"> 
+                                      <div class="alert alert-success">
+                                      <?php echo "<strong>" . $smark . ": " . "</strong>" . $smark1 ?>
+                                      </div>
+                                    </div>
+                                    <?php }
+                                    mysql_close();
+                                    ?>
+									<?php echo "<strong>" . $_POST['select_course'] . "</strong>" ?> You successfully read this important alert message.
+								
 				</div>
 			</div>						
 				</div>								

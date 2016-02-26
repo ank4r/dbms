@@ -263,7 +263,7 @@
                         <a href="table.php"><i class="fa fa-table"></i> Responsive Tables</a>
                     </li>
                     <li>
-                        <a href="form.php"><i class="fa fa-edit"></i> Forms </a>
+                        <a href="form.php"><i class="fa fa-edit"></i> Upload Content </a>
                     </li>
 
 
@@ -322,11 +322,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php 
-<<<<<<< HEAD
-                                          include('info.php');
-=======
->>>>>>> 1d240e850cec196d1f588b35c84ab56b95bba5a9
+                                        <?php
                                           $connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
                                           mysql_select_db('dbms');
                                           $table=mysql_query('SELECT * FROM courset WHERE facID=1 ');
@@ -341,7 +337,9 @@
                                             <td><?php echo $smark ?></td>
                                             <td><?php echo $smark1 ?></td>
                                           </tr>
-                                        <?php } ?>
+                                        <?php } 
+                                        mysql_close();
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
