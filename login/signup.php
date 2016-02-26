@@ -1,22 +1,19 @@
 <?php
+include 'helper_modules.php';
+
    	if($_POST["password"]){
    	if(strcmp($_POST["fname"],"FullName")==0||strcmp($_POST["lname"],"LastName")==0||strcmp($_POST["userid"],"UserId")==0||strcmp($_POST["password"],"Password")==0||!$_POST["age"]||!$_POST["sex"]||strcmp($_POST["bday"],"YYYY-MM-DD")==0)
    	{
    		echo "Please fill all the details!!";
    	}
    	else{
-   	$dbhost = 'localhost:3306';
-   	$dbuser = 'root';
-   	$dbpass = 'naruto';
-   	$conn = mysql_connect($dbhost, $dbuser, $dbpass);
    
-    if(! $conn ) {
-      die('Could not connect: ' . mysql_error());
-   	}
-   //mysql_select_db('dbms');
-   	//echo 'Connected successfully';
-   	if(strcmp($_POST["mname"],"MiddleName")==0){
-   	$sql='INSERT INTO student '.
+   	$conn = connectToDatabase();
+   
+   	if(strcmp($_POST["mname"],"")==0)
+    {
+      
+   	$sql='INSERT INTO members '.
    	'SET fname=\''.$_POST["fname"].
    	'\',lname=\''.$_POST["lname"].
  	'\',userid=\''.$_POST["userid"].
@@ -26,7 +23,7 @@
    	'\',bday=\''.$_POST["bday"].'\'';
    }
    else{
-    $sql='INSERT INTO student '.
+    $sql='INSERT INTO members '.
    	'SET fname=\''.$_POST["fname"].
    	'\',mname=\''.$_POST["mname"].
    	'\',lname=\''.$_POST["lname"].
@@ -36,15 +33,21 @@
    	',sex=\''.$_POST["sex"].
    	'\',bday=\''.$_POST["bday"].'\'';
    }
-   mysql_select_db('dbms');
+
+   $myusername = $_POST['userid'];
+
    $retval=mysql_query($sql,$conn);
    if(! $retval ) {
-      die('Could not create table: ' . mysql_error());
+      die('Could not insert into table: ' . mysql_error());
    }
    
    //echo "\nAccount created successfully\n";
- 	header("Location:db_1.php");
-   mysql_close($conn);
+ 	 echo "\nAccount created successfully \n";
+
+      $_SESSION['login_user'] = $_POST['userid'];
+        
+      header('Location: welcome.php');
+
    //print "<br>".$sql."<br>";
    //echo "hello";
    exit();
@@ -79,7 +82,7 @@ font-weight: bold;
 margin: 50px auto;
 width: 300px;
 }
-form fieldset input[type="text"] ,input[type="number"] ,input[type="date"]{
+form fieldset input[type="text"] ,input[type="number"] ,input[type="date"],input[type="password"]{
 background-color: #e5e5e5;
 border: none;
 border-radius: 3px;
@@ -136,12 +139,12 @@ form fieldset a:hover { text-decoration: underline; }
 <h1><strong>Welcome</strong> Please signup.</h1>
 <form action="<?php $_PHP_SELF ?>" method="post">
 <fieldset>
-<p><input type="text" name="fname" required value="FirstName" onBlur="if(this.value=='')this.value='FirstName'" onFocus="if(this.value=='FirstName')this.value='' "></p>
-<p><input type="text" name="mname" required value="MiddleName" onBlur="if(this.value=='')this.value='MiddleName'" onFocus="if(this.value=='MiddleName')this.value='' "></p>
-<p><input type="text" name="lname" required value="LastName" onBlur="if(this.value=='')this.value='LastName'" onFocus="if(this.value=='LastName')this.value='' "></p>
-<p><input type="text" name="userid" required value="UserId" onBlur="if(this.value=='')this.value='UserId'" onFocus="if(this.value=='UserId')this.value='' "></p>
-<p><input type="text" name="password" required value="Password" onBlur="if(this.value=='')this.value='Password" onFocus="if(this.value=='Password')this.value='' "></p>
-<p>Age: </p><p><input type="number" name="age" required value="Age" onBlur="if(this.value=='')this.value='Age'" onFocus="if(this.value=='Age')this.value='' "></p>
+<p><input type="text" name="fname" required placeholder="First Name" ></p>
+<p><input type="text" name="mname" placeholder="Middle Name"></p>
+<p><input type="text" name="lname" required placeholder="Last Name"></p>
+<p><input type="text" name="userid" value ="" required placeholder="User ID"></p>
+<p><input type="password" name="password" required placeholder="password"></p>
+<p>Age: </p><p><input type="number" name="age" required placeholder="Age in years"></p>
 <p>sex: </p>
 <select name = "sex">
     <option value = "M">
@@ -153,7 +156,7 @@ form fieldset a:hover { text-decoration: underline; }
     </option>
  </select>
 <p>Birth Date: </p>
-<p><input type="date" name="bday" required value="YYYY-MM-DD" onBlur="if(this.value=='')this.value='YYYY-MM-DD'" onFocus="if(this.value=='YYYY-MM-DD')this.value='' "></p>
+<p><input type="date" name="bday" required placeholder="YYYY-MM-DD"></p>
 <p><input type="submit" value="Create Account"></p>
 </fieldset>
 </form>
