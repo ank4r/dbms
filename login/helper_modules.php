@@ -75,11 +75,11 @@ function createLecturesTable()
    endDatabaseConnection($conn);
 }
 
-function dropMembersTable()
+function dropTable($tablename)
 {
    $conn=connectToDatabase();
 
-   $sql='DROP TABLE members';
+   $sql='DROP TABLE '.$tablename;
    $retval=mysql_query($sql,$conn);
    
    if(!$retval )
@@ -87,10 +87,43 @@ function dropMembersTable()
      die('Could not execute query: ' . mysql_error());
    }
    else{
-      echo "Droppped members Table successfully";
+      echo "Droppped Table". $tablename."successfully";
    }
     endDatabaseConnection($conn);
 }
+
+
+function createCoursesTable()
+{
+   $conn=connectToDatabase();
+   
+   $sql='CREATE TABLE courses('.
+      'c_id INTEGER AUTO_INCREMENT NOT NULL,'.
+      'course_name varchar(50) NOT NULL,'.
+      'course_category SET('Mathematics','General Sciences','Biology','Physics','Chemistry','Social Sciences','Miscellaneous','Languages','Computer Science') NOT NULL,'.
+      'course_admin INTEGER NOT NULL,'.
+      'air_date Date NOT NULL,'.
+      'brief_overview varchar(1000) NOT NULL,'.
+      'PRIMARY KEY(c_id))';
+      
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data: ' . mysql_error());
+   }
+   else{
+      echo "Created Lectures Table successfully";
+   }
+
+   endDatabaseConnection();
+}
+
+
+// course-topics table
+// course-faculty table
+// topic-subtopic table
+// subtopic-lecture table
 
 
 

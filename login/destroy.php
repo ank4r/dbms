@@ -1,7 +1,9 @@
 <?php
 include 'helper_modules.php';
 
-   dropMembersTable();
+   dropTable('members');
+   dropTable('lectures');
+   dropTable('courses');
    	
 	exit();
 ?>

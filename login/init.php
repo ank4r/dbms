@@ -2,7 +2,9 @@
 include('helper_modules.php');
 
    createMembersTable();
-   //createLecturesTable();
+   createLecturesTable();
+   createCoursesTable();
+
 	exit();
 ?>
 

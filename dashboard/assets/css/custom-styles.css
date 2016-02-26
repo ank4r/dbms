@@ -334,6 +334,7 @@ line-height: 30px;
 	 
  .chat-panel .panel-body {
 height: 450px;
+overflow: hidden;
 overflow-y: scroll;
 }
  .chat-box {
@@ -568,6 +569,13 @@ border-radius: 25px;
 text-align: center;
 font-size: 12px;
 line-height: 1.428571429;
+}
+.btn-primary{
+  width: 50px;
+  padding-top: 20px;
+}
+.btn-success{
+  padding-top: 20px;
 }
 
 /*----------------------------------------------
