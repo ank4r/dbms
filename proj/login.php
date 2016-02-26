@@ -1,8 +1,10 @@
 <?php
+   session_start();
+
    	if($_POST["signup"])
 	{
 		echo "hello";
-		header( "Location:http://localhost/test/signup.php");
+		header( "Location: signup.php");
 	}
    	if($_POST["Username"] || $_POST["Password"] ){
    	/*echo $_POST["Username"];
@@ -16,7 +18,7 @@
    		echo "Please Enter Password";
    	}
    	else{
-   	$dbhost = 'localhost:3036';
+   	$dbhost = 'localhost:3306';
    	$dbuser = 'root';
    	$dbpass = 'naruto';
    	$conn = mysql_connect($dbhost, $dbuser, $dbpass);
@@ -35,7 +37,7 @@
    	'sex varchar(2) NOT NULL,'.
    	'bday DATE NOT NULL,'.
    	'PRIMARY KEY(sid))';*/
-   	
+   	$myusername = "";
    	mysql_select_db('dbms');
 	$sql='SELECT fname FROM student WHERE userid=\''.$_POST["Username"].'\' and pwd=\''.$_POST["Password"].'\'';
    	$retval=mysql_query($sql,$conn);
@@ -48,6 +50,7 @@
 	{
 		$i=1;
 		echo "Welcome {$row['fname']} !!";
+      $myusername = $row['fname'];
 		break;
 	}
    if($i==0)
@@ -55,9 +58,12 @@
    		echo "Incorrect Username or Password";
    }
    else{
-   echo "\nLogined successfully\n";
-	mysql_close($conn);
-	exit();
+       echo "\nLogined successfully\n";
+
+      $_SESSION['login_user'] = $myusername;
+        
+      header('Location: welcome.php');
+
 	}
 	mysql_close($conn);
 
@@ -183,7 +189,7 @@ width: 250px;
 <form action="<?php $_PHP_SELF ?>" method="post">
 <p>
 <a class="signup-before"></a>
-<input type="button" name="signup" value="signup" class="signup" onClick="document.location.href='/test/signup.php'">
+<input type="button" name="signup" value="signup" class="signup" onClick="document.location.href='signup.php'">
 </p>
 </form>
 </div> <!-- end login -->
