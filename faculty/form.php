@@ -1,4 +1,4 @@
-﻿<?php
+<?php
    include('../login/session.php');
    include('../login/info.php');
 ?>
@@ -363,7 +363,8 @@
                                         <div class="form-group">
                                             <label>Selects Course</label>
                                             <select class="form-control">
-                                                <?php                                                   $connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
+                                                <?php                                                   
+                                                  $connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
                                                   mysql_select_db('dbms');
                                                   $table=mysql_query('SELECT * FROM courset WHERE facID=1 ');
                                                   while($row=mysql_fetch_array($table))

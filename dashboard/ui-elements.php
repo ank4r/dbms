@@ -227,7 +227,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                       <li><a href="../login/logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -242,6 +242,9 @@
 
                     <li>
                         <a href="index.php"><i class="fa fa-dashboard"></i> Dashboard</a>
+                    </li>
+                     <li>
+                        <a href="courses.php"><i class="fa fa-book"></i> My Courses</a>
                     </li>
                     <li>
                         <a href="ui-elements.php" class="active-menu"><i class="fa fa-desktop"></i> UI Elements</a>
