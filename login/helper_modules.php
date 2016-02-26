@@ -75,6 +75,122 @@ function createLecturesTable()
    endDatabaseConnection($conn);
 }
 
+
+function createSubTopicTable()
+{
+   $conn=connectToDatabase();
+
+   $sql='CREATE TABLE subtopics('.
+      'sub_id INTEGER AUTO_INCREMENT NOT NULL,'.
+      'dir_path varchar(50) NOT NULL,'.
+      'sub_name varchar(50),'.
+      'PRIMARY KEY(sub_id))';
+      
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data: ' . mysql_error());
+   }
+   else{
+      echo "Created SubTopics Table successfully";
+   }
+
+   endDatabaseConnection($conn);
+}
+
+function createTopicTable()
+{
+   $conn=connectToDatabase();
+
+   $sql='CREATE TABLE topics('.
+      'top_id INTEGER AUTO_INCREMENT NOT NULL,'.
+      'top_name varchar(50),'.
+      'PRIMARY KEY(top_id))';
+      
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data: ' . mysql_error());
+   }
+   else{
+      echo "Created Topics Table successfully";
+   }
+
+   endDatabaseConnection($conn);
+}
+
+function relationTopic_SubTopic()
+{
+   $conn=connectToDatabase();
+
+   $sql='CREATE TABLE topsubtop('.
+      'top_id INTEGER NOT NULL,'.
+      'sub_id INTEGER NOT NULL,'.
+      'FOREIGN KEY(top_id) REFERENCES topics(top_id),'.
+      'FOREIGN KEY(sub_id) REFERENCES subtopics(sub_id))';
+      
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data1: ' . mysql_error());
+   }
+   else{
+      echo "Created Topic_SubTopic Table successfully";
+   }
+
+   endDatabaseConnection($conn);
+}
+
+function relationSubTopic_Lecture()
+{
+   $conn=connectToDatabase();
+
+   $sql='CREATE TABLE subtoplec('.
+      'sub_id INTEGER NOT NULL,'.
+      'l_id INTEGER NOT NULL,'.
+      'FOREIGN KEY(sub_id) REFERENCES subtopics(sub_id),'.
+      'FOREIGN KEY(l_id) REFERENCES lectures(l_id))';
+      
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data2: ' . mysql_error());
+   }
+   else{
+      echo "Created SubTopic_Lecture Table successfully";
+   }
+
+   endDatabaseConnection($conn);
+}
+
+function relationCourse_Topic()
+{
+   $conn=connectToDatabase();
+
+   $sql='CREATE TABLE coursetop('.
+      'c_id INTEGER NOT NULL,'.
+      'top_id INTEGER NOT NULL,'.
+      'FOREIGN KEY(top_id) REFERENCES topics(top_id),'.
+      'FOREIGN KEY(c_id) REFERENCES courses(c_id))';
+      
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data2: ' . mysql_error());
+   }
+   else{
+      echo "Created relationCourse_Topic Table successfully";
+   }
+
+   endDatabaseConnection($conn);
+}
+
+
 function dropTable($tablename)
 {
    $conn=connectToDatabase();
@@ -87,7 +203,7 @@ function dropTable($tablename)
      die('Could not execute query: ' . mysql_error());
    }
    else{
-      echo "Droppped Table". $tablename."successfully";
+      echo "Droppped Table ". $tablename." successfully";
    }
     endDatabaseConnection($conn);
 }
@@ -100,7 +216,7 @@ function createCoursesTable()
    $sql='CREATE TABLE courses('.
       'c_id INTEGER AUTO_INCREMENT NOT NULL,'.
       'course_name varchar(50) NOT NULL,'.
-      'course_category SET('Mathematics','General Sciences','Biology','Physics','Chemistry','Social Sciences','Miscellaneous','Languages','Computer Science') NOT NULL,'.
+      'course_category SET(\'Mathematics\',\'General Sciences\',\'Biology\',\'Physics\',\'Chemistry\',\'Social Sciences\',\'Miscellaneous\',\'Languages\',\'Computer Science\') NOT NULL,'.
       'course_admin INTEGER NOT NULL,'.
       'air_date Date NOT NULL,'.
       'brief_overview varchar(1000) NOT NULL,'.
@@ -113,17 +229,11 @@ function createCoursesTable()
      die('Could not get data: ' . mysql_error());
    }
    else{
-      echo "Created Lectures Table successfully";
+      echo "Created Courses Table successfully";
    }
 
    endDatabaseConnection();
 }
-
-
-// course-topics table
-// course-faculty table
-// topic-subtopic table
-// subtopic-lecture table
 
 
 
