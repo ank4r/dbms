@@ -254,6 +254,9 @@
                     <li>
                         <a class="active-menu" href="index.php"><i class="fa fa-dashboard"></i> Dashboard</a>
                     </li>
+                     <li>
+                        <a href="courses.php"><i class="fa fa-book"></i> My Courses</a>
+                    </li>
                     <li>
                         <a href="ui-elements.php"><i class="fa fa-desktop"></i> UI Elements</a>
                     </li>
