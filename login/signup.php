@@ -2,15 +2,14 @@
 include 'helper_modules.php';
 
    	if($_POST["password"]){
-   	if(strcmp($_POST["fname"],"FullName")==0||strcmp($_POST["lname"],"LastName")==0||strcmp($_POST["userid"],"UserId")==0||strcmp($_POST["password"],"Password")==0||!$_POST["age"]||!$_POST["sex"]||strcmp($_POST["bday"],"YYYY-MM-DD")==0)
+   	if(!$_POST["fname"]||!$_POST["lname"]||!$_POST["userid"]||!$_POST["password"]||!$_POST["age"]||!$_POST["sex"]||!$_POST["bday"]||!$_POST["email"])
    	{
    		echo "Please fill all the details!!";
    	}
    	else{
    
    	$conn = connectToDatabase();
-   
-   	if(strcmp($_POST["mname"],"")==0)
+   	if(!$_POST["mname"])
     {
       
    	$sql='INSERT INTO members '.
@@ -20,7 +19,8 @@ include 'helper_modules.php';
  	'\',pwd=\''.$_POST["password"].
    	'\',age='.$_POST["age"].
    	',sex=\''.$_POST["sex"].
-   	'\',bday=\''.$_POST["bday"].'\'';
+   	'\',bday=\''.$_POST["bday"].
+    '\',email=\''.$_POST["email"].'\'';
    }
    else{
     $sql='INSERT INTO members '.
@@ -31,7 +31,8 @@ include 'helper_modules.php';
  	'\',pwd=\''.$_POST["password"].
    	'\',age='.$_POST["age"].
    	',sex=\''.$_POST["sex"].
-   	'\',bday=\''.$_POST["bday"].'\'';
+    '\',bday=\''.$_POST["bday"].
+    '\',email=\''.$_POST["email"].'\'';
    }
 
    $myusername = $_POST['userid'];
@@ -82,7 +83,7 @@ font-weight: bold;
 margin: 50px auto;
 width: 300px;
 }
-form fieldset input[type="text"] ,input[type="number"] ,input[type="date"],input[type="password"]{
+form fieldset input[type="text"] ,input[type="number"] ,input[type="date"],input[type="password"],input[type="email"]{
 background-color: #e5e5e5;
 border: none;
 border-radius: 3px;
@@ -144,6 +145,7 @@ form fieldset a:hover { text-decoration: underline; }
 <p><input type="text" name="lname" required placeholder="Last Name"></p>
 <p><input type="text" name="userid" value ="" required placeholder="User ID"></p>
 <p><input type="password" name="password" required placeholder="password"></p>
+<p><input type="email" name="email" required placeholder="example@gmail.com"></p>
 <p>Age: </p><p><input type="number" name="age" required placeholder="Age in years"></p>
 <p>sex: </p>
 <select name = "sex">

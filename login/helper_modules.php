@@ -1,12 +1,8 @@
 <?php
-
 function connectToDatabase()
 {
-   $dbhost = 'localhost:3306';
-   $dbuser = 'root';
-   $dbpass = 'naruto';
+   include('info.php');
    $conn = mysql_connect($dbhost, $dbuser, $dbpass);
-   
    if(! $conn ) {
      die('Could not connect: ' . mysql_error());
    }
@@ -52,6 +48,32 @@ function createMembersTable()
    endDatabaseConnection($conn);
 } 
 
+function createLecturesTable()
+{
+   $conn=connectToDatabase();
+
+   $sql='CREATE TABLE lectures('.
+      'l_id INTEGER AUTO_INCREMENT NOT NULL,'.
+      'lec_name varchar(50) NOT NULL,'.
+      'vidcont varchar(50),'.
+      'lec_notes varchar(50),'.
+      'rel_date Date NOT NULL,'.
+      'fac_id INT NOT NULL,'.
+      'topics varchar(50),'.
+      'PRIMARY KEY(l_id))';
+      
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data: ' . mysql_error());
+   }
+   else{
+      echo "Created Lectures Table successfully";
+   }
+
+   endDatabaseConnection($conn);
+}
 
 function dropMembersTable()
 {

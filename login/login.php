@@ -26,7 +26,7 @@ include 'helper_modules.php';
    	
 	$sql='SELECT fname FROM members WHERE userid=\''.$_POST["Username"].'\' and pwd=\''.$_POST["Password"].'\'';
 
-   echo "\n".$sql."\n";
+   //echo "\n".$sql."\n";
 
    	$retval=mysql_query($sql,$conn);
 
