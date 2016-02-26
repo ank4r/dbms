@@ -263,7 +263,7 @@
                         <a href="table.php"><i class="fa fa-table"></i> Responsive Tables</a>
                     </li>
                     <li>
-                        <a href="form.php"><i class="fa fa-edit"></i> Forms </a>
+                        <a href="form.php"><i class="fa fa-edit"></i> Upload Content </a>
                     </li>
 
 
@@ -337,7 +337,9 @@
                                             <td><?php echo $smark ?></td>
                                             <td><?php echo $smark1 ?></td>
                                           </tr>
-                                        <?php } ?>
+                                        <?php } 
+                                        mysql_close();
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>

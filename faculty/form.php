@@ -16,6 +16,18 @@
     <link href="assets/css/custom-styles.css" rel="stylesheet" />
      <!-- Google Fonts-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <script type="text/javascript">
+        function show() { document.getElementById('area').style.display = 'block'; 
+                          document.getElementById('area1').style.display = 'block';
+                          document.getElementById('area2').style.display = 'block';
+                          document.getElementById('area3').style.display = 'block';
+                            }
+        function hide() { document.getElementById('area').style.display = 'none';
+                          document.getElementById('area1').style.display = 'none';
+                          document.getElementById('area2').style.display = 'none';
+                          document.getElementById('area3').style.display = 'none';
+                         }
+    </script>
 </head>
 <body>
     <div id="wrapper">
@@ -261,7 +273,7 @@
                         <a href="table.php"><i class="fa fa-table"></i> Responsive Tables</a>
                     </li>
                     <li>
-                        <a href="form.php" class="active-menu"><i class="fa fa-edit"></i> Forms </a>
+                        <a href="form.php" class="active-menu"><i class="fa fa-edit"></i> Upload Content </a>
                     </li>
 
 
@@ -293,7 +305,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="empty.php"><i class="fa fa-fw fa-file"></i> Empty Page</a>
+                        <a href="course.php"><i class="fa fa-fw fa-file"></i> Courses Teaching</a>
                     </li>
                 </ul>
 
@@ -326,26 +338,32 @@
                                             <label>Type Of Content</label>
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="lecture" checked="">Lecture
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="lecture" checked="" onclick="show();">Lecture
+                                                    <br/>
+                                                    <input type="url" id="area" name="area" placeholder="video lecture url"> 
+                                                    <br/>
+                                                    <input type="text" id="area1" name="area1" placeholder="Topic"> 
+                                                    <br/>
+                                                    <input type="text" id="area2" name="area2" placeholder="Sub-Topic"> 
+                                                    <br/>
+                                                    <textarea id="area3" name="area3" placeholder="Lecture Transcription" cols="50" rows="5"></textarea>
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="assignment">Assignment
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="assignment" onclick="hide();">Assignment
                                                 </label>
                                             </div>
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="quiz">Quiz
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="quiz" onclick="hide();">Quiz
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label>Selects</label>
+                                            <label>Selects Course</label>
                                             <select class="form-control">
-                                                <?php 
-                                                  include('info.php');
-                                                  $connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
+                                                <?php                                                   $connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
                                                   mysql_select_db('dbms');
                                                   $table=mysql_query('SELECT * FROM courset WHERE facID=1 ');
                                                   while($row=mysql_fetch_array($table))
@@ -355,7 +373,9 @@
                                                       $smark1=$row['courseID'];
                                                   ?>
                                                   <option><?php echo $smark1 ?></option>
-                                                <?php } ?>
+                                                <?php }
+                                                mysql_close();
+                                                ?>
                                             </select>
                                         </div>
                                         <button type="submit" class="btn btn-default" name="submit">Submit Button</button>
@@ -371,7 +391,6 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-			<footer><p>All right reserved. Template by: <a href="http://webthemez.com">WebThemez</a></p></footer>
 			</div>
              <!-- /. PAGE INNER  -->
             </div>
