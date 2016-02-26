@@ -1,5 +1,7 @@
 <?php
    include('session.php');
+
+   header("Location: ../dashboard/index.php");
 ?>
 <html>
    
