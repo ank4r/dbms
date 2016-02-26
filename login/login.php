@@ -1,4 +1,6 @@
 <?php
+include 'helper_modules.php';
+
    session_start();
 
    	if($_POST["signup"])
@@ -18,39 +20,29 @@
    		echo "Please Enter Password";
    	}
    	else{
-   	$dbhost = 'localhost:3306';
-   	$dbuser = 'root';
-   	$dbpass = 'naruto';
-   	$conn = mysql_connect($dbhost, $dbuser, $dbpass);
-   
-    if(! $conn ) {
-      die('Could not connect: ' . mysql_error());
-   	}
-   //mysql_select_db('dbms');
-   	//echo 'Connected successfully';
-   /*$sql='CREATE TABLE student('.
-   	'sid INT NOT NULL AUTO_INCREMENT,'.
-   	'fname varchar(20) NOT NULL,'.
-   	'mname varchar(20),'.
-   	'lname varchar(20) NOT NULL,'.
-   	'age INT NOT NULL,'.
-   	'sex varchar(2) NOT NULL,'.
-   	'bday DATE NOT NULL,'.
-   	'PRIMARY KEY(sid))';*/
-   	$myusername = "";
-   	mysql_select_db('dbms');
-	$sql='SELECT fname FROM student WHERE userid=\''.$_POST["Username"].'\' and pwd=\''.$_POST["Password"].'\'';
+   	$conn = connectToDatabase();
+
+      echo "userid : ".$_POST["Username"]." pwd : ".$_POST["Password"];
+   	
+	$sql='SELECT fname FROM members WHERE userid=\''.$_POST["Username"].'\' and pwd=\''.$_POST["Password"].'\'';
+
+   echo "\n".$sql."\n";
+
    	$retval=mysql_query($sql,$conn);
+
   	if(! $retval )
 	{
 	  die('Could not get data: ' . mysql_error());
 	}
+
 	$i=0;
+   $myfname="";
+
 	while($row = mysql_fetch_assoc($retval))
 	{
 		$i=1;
 		echo "Welcome {$row['fname']} !!";
-      $myusername = $row['fname'];
+      $myfname = $row['fname'];
 		break;
 	}
    if($i==0)
@@ -60,14 +52,15 @@
    else{
        echo "\nLogined successfully\n";
 
-      $_SESSION['login_user'] = $myusername;
+      $_SESSION['login_user'] = $myfname;
         
       header('Location: welcome.php');
 
 	}
-	mysql_close($conn);
+	endDatabaseConnection();
 
-}
+   }
+
 }
 ?>
 
@@ -179,8 +172,8 @@ width: 250px;
 <h1><strong>Welcome.</strong> Please login.</h1>
 <form action="<?php $_PHP_SELF ?>" method="post">
 <fieldset>
-<p><input type="text" name="Username" required value="Username" onBlur="if(this.value=='')this.value='Username'" onFocus="if(this.value=='Username')this.value='' "></p>
-<p><input type="password" name="Password" required value="Password" onBlur="if(this.value=='')this.value='Password'" onFocus="if(this.value=='Password')this.value='' "></p>
+<p><input type="text" name="Username" required placeholder="Username" ></p>
+<p><input type="password" name="Password" required placeholder="Password"></p>
 <p><a href="#">Forgot Password?</a></p>
 <p><input type="submit" value="Login"></p>
 </fieldset>
