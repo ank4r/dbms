@@ -260,7 +260,7 @@
                         <a href="index.php"><i class="fa fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="ui-elements.php"><i class="fa fa-desktop"></i> UI Elements</a>
+                        <a href="ui-elements.php"><i class="fa fa-desktop"></i> Chat Forum</a>
                     </li>
 					<li>
                         <a href="chart.php"><i class="fa fa-bar-chart-o"></i> Charts</a>
