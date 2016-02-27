@@ -1,7 +1,17 @@
 <?php
 include 'helper_modules.php';
 
-   dropMembersTable();
+	dropTable('subtoplec');
+   dropTable('topsubtop');
+   dropTable('coursetop');
+
+   dropTable('members');
+   dropTable('lectures');
+   dropTable('courses');
+   
+   dropTable('topics');
+   dropTable('subtopics');
+  
    	
 	exit();
 ?>

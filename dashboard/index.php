@@ -33,7 +33,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php"><i class="fa fa-comments"></i> <strong>MASTER </strong></a>
+                <a class="navbar-brand" href="index.php"><i class="fa fa-comments"></i> <strong>KGP Course Management </strong></a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">

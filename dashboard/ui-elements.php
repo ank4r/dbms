@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿<?php
+   include('../login/session.php');
+
+?>
+
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
       <meta charset="utf-8" />
@@ -23,7 +28,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php"><i class="fa fa-comments"></i> <strong>MASTER </strong></a>
+                <a class="navbar-brand" href="index.php"><i class="fa fa-comments"></i> <strong>KGP Course Management </strong></a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -409,13 +414,13 @@
                         </div>
                        
                         <div class="panel-body">
-                       <div class="progress progress-striped active">
-  <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-    <span class="sr-only">40% Complete (success)</span>
-  </div>
-</div>
+                           <div class="progress progress-striped active">
+                                  <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                    <span class="sr-only">40% Complete (success)</span>
+                                  </div>
                             </div>
-                            </div>
+                        </div>
+                         </div>
                     </div>
                       <div class="col-md-6">
                         <div class="panel panel-default">

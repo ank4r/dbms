@@ -4,7 +4,7 @@
    
    $user_check = $_SESSION['login_user'];
 
-   $sql = "SELECT fname FROM members where userid = \'".$user_check." \' ";
+   $sql = "SELECT userid FROM members where fname = \'".$user_check." \' ";
    
    $ses_sql = mysqli_query($db,$sql);
    
