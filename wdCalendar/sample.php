@@ -7,11 +7,11 @@
 <head id="Head1">
     <title>	My Calendar </title>
     <!-- Bootstrap Styles-->
-    <link href="../faculty/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="../dashboard/assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
-    <link href="../faculty/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="../dashboard/assets/css/font-awesome.css" rel="stylesheet" />
         <!-- Custom Styles-->
-    <link href="../faculty/assets/css/custom-styles.css" rel="stylesheet" />
+    <link href="../dashboard/assets/css/custom-styles.css" rel="stylesheet" />
      <!-- Google Fonts-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
@@ -455,52 +455,23 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a href="index.php"><i class="fa fa-dashboard"></i> Dashboard</a>
+                        <a href="../faculty/index.php"><i class="fa fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="ui-elements.php" class="active-menu"><i class="fa fa-desktop"></i> Chat Forum</a>
+                        <a href="../faculty/ui-elements.php"><i class="fa fa-desktop"></i> Chat Forum</a>
                     </li>
                     <li>
-                        <a href="chart.php"><i class="fa fa-bar-chart-o"></i> Charts</a>
+                        <a href="../faculty/chart.php"><i class="fa fa-bar-chart-o"></i> Charts</a>
                     </li>
                     <li>
-                        <a href="tab-panel.php"><i class="fa fa-qrcode"></i> Tabs & Panels</a>
+                        <a href="sample.php" class="active-menu"><i class="fa fa-qrcode"></i> Event Calender</a>
                     </li>
                     
                     <li>
-                        <a href="table.php"><i class="fa fa-table"></i> Responsive Tables</a>
+                        <a href="../faculty/table.php"><i class="fa fa-table"></i> Responsive Tables</a>
                     </li>
                     <li>
-                        <a href="form.php"><i class="fa fa-edit"></i> Forms </a>
-                    </li>
-
-
-                    <li>
-                        <a href="#"><i class="fa fa-sitemap"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="#">Second Level Link</a>
-                            </li>
-                            <li>
-                                <a href="#">Second Level Link</a>
-                            </li>
-                            <li>
-                                <a href="#">Second Level Link<span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="#">Third Level Link</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Third Level Link</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Third Level Link</a>
-                                    </li>
-
-                                </ul>
-
-                            </li>
-                        </ul>
+                        <a href="../faculty/form.php"><i class="fa fa-edit"></i> Forms </a>
                     </li>
                     <li>
                         <a href="course.php"><i class="fa fa-fw fa-file"></i> Courses Teaching</a>

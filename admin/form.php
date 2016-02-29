@@ -1,19 +1,6 @@
 <?php
    include('../login/session.php');
    include('../login/info.php');
-   $fac_id = get_faculty_id($_SESSION['login_id']);
-   $result = get_course_for_faculty($fac_id);
-   $course_id = 1;
-   $topic_id = 1;
-   $sub_topic_id = 1;
-   if(isset($_POST['select_course'])){
-        $course_id = $_POST['select_course'];
-        $result_topic = get_topics_for_course($course_id);
-        if(isset($_POST['select_topic'])){
-            $topic_id = $_POST['select_topic']
-            $result_sub_topic = get_sub_topics_for_course($topic_id);
-        }
-    }
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -30,10 +17,14 @@
      <!-- Google Fonts-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
    <script type="text/javascript">
-        function show() { document.getElementById('area').style.display = 'block';
+        function show() { document.getElementById('area').style.display = 'block'; 
+                          document.getElementById('area1').style.display = 'block';
+                          document.getElementById('area2').style.display = 'block';
                           document.getElementById('area3').style.display = 'block';
                             }
         function hide() { document.getElementById('area').style.display = 'none';
+                          document.getElementById('area1').style.display = 'none';
+                          document.getElementById('area2').style.display = 'none';
                           document.getElementById('area3').style.display = 'none';
                          }
     </script>
@@ -312,77 +303,8 @@
                                 <div class="col-lg-6">
                                     <form role="form" action="submit.php" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
-                                            <label>Selects Course</label>
-                                            <select class="form-control" id="select_course" onchange="this.form.submit()">
-                                                <?php   
-                                                     
-                                                                                              
-                                                  /*$connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
-                                                  mysql_select_db('dbms');
-                                                  $table=mysql_query('SELECT * FROM courset WHERE facID=1 ');
-                                                  while($row=mysql_fetch_array($table))
-                                                  {
-                                                      $number=$row['id'];
-                                                      $smark=$row['facID'];
-                                                      $smark1=$row['courseID'];
-                                                      echo "<option>". $cname_id . "</option>";
-                                                  }*/
-                                                  foreach($result as $option) {
-                                                    $cname_id = $option['course_name'] . "-[" . $option['c_id'] . "]";
-                                                    echo '<option value="' . $option['c_id'] . '">'. $cname_id . '</option>';
-                                                    }
-                                                //mysql_close();
-                                                ?>
-                                            </select>
-                                            <label>Selects Topic</label>
-                                            <select class="form-control" id="select_topic" onchange="this.form.submit()">
-                                                <option>Add new Topic </option>
-                                                <?php
-                                                  foreach($result_topic as $option) {
-                                                    $cname_id = $option['top_name'] . '[' . $option['top_id'];
-                                                    echo '<option value="' . $option['top_id'] . '">'. $cname_id . '</option>';
-                                                    }
-                                                  /*$connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
-                                                  mysql_select_db('dbms');
-                                                  $table=mysql_query('SELECT * FROM courset WHERE facID=1 ');
-                                                  while($row=mysql_fetch_array($table))
-                                                  {
-                                                      $number=$row['id'];
-                                                      $smark=$row['facID'];
-                                                      $smark1=$row['courseID'];
-                                                  }
-                                                mysql_close();*/
-                                                ?>
-                                            </select>
-                                            <input type="text" id="area1" name="area1" placeholder="Topic"> 
-                                            </br>
-                                            </br>
-                                            </br>
-                                            <label>Select Sub-Topic</label>
-                                            <select class="form-control" id="select_sub_topic" onchange="this.form.submit()">
-                                                <option>Add new Sub-Topic </option>
-                                                <?php                                                   
-                                                  /*$connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
-                                                  mysql_select_db('dbms');
-                                                  $table=mysql_query('SELECT * FROM courset WHERE facID=1 ');
-                                                  while($row=mysql_fetch_array($table))
-                                                  {
-                                                      $number=$row['id'];
-                                                      $smark=$row['facID'];
-                                                      $smark1=$row['courseID'];
-                                                  ?>
-                                                  <option><?php echo $smark1 ?></option>
-                                                <?php }
-                                                mysql_close();*/
-                                                foreach($result_topic as $option) {
-                                                    $cname_id = $option['sub_name'] . "[" . $option['sub_id'];
-                                                    echo '<option value="' . $option['sub_id'] . '">'. $cname_id . '</option>';
-                                                    }
-                                                ?>
-                                            </select>
-                                            <input type="text" id="area2" name="area2" placeholder="Sub-Topic">
-                                            </br>
-                                            </br>
+                                            <label>File input</label>
+                                            <input type="file" name="fileToUpload" id="fileToUpload" required>
                                         </div>
                                         <div class="form-group">
                                             <label>Type Of Content</label>
@@ -391,6 +313,10 @@
                                                     <input type="radio" name="optionsRadios" id="optionsRadios1" value="lecture" checked="" onclick="show();">Lecture
                                                     <br/>
                                                     <input type="url" id="area" name="area" placeholder="video lecture url"> 
+                                                    <br/>
+                                                    <input type="text" id="area1" name="area1" placeholder="Topic"> 
+                                                    <br/>
+                                                    <input type="text" id="area2" name="area2" placeholder="Sub-Topic"> 
                                                     <br/>
                                                     <textarea id="area3" name="area3" placeholder="Lecture Transcription" cols="50" rows="5"></textarea>
                                                 </label>
@@ -405,13 +331,28 @@
                                                     <input type="radio" name="optionsRadios" id="optionsRadios3" value="quiz" onclick="hide();">Quiz
                                                 </label>
                                             </div>
-                                            </br>
-                                            </br>
-                                            <label>File input</label>
-                                            <input type="file" name="fileToUpload" id="fileToUpload" required>
                                         </div>
-                                        <button type="submit" class="btn btn-default" name="submit">Submit</button>
-                                        <button type="reset" class="btn btn-default" onclick='window.location.reload();'>Reset</button>
+                                        <div class="form-group">
+                                            <label>Selects Course</label>
+                                            <select class="form-control">
+                                                <?php                                                   
+                                                  $connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
+                                                  mysql_select_db('dbms');
+                                                  $table=mysql_query('SELECT * FROM courset WHERE facID=1 ');
+                                                  while($row=mysql_fetch_array($table))
+                                                  {
+                                                      $number=$row['id'];
+                                                      $smark=$row['facID'];
+                                                      $smark1=$row['courseID'];
+                                                  ?>
+                                                  <option><?php echo $smark1 ?></option>
+                                                <?php }
+                                                mysql_close();
+                                                ?>
+                                            </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-default" name="submit">Submit Button</button>
+                                        <button type="reset" class="btn btn-default">Reset Button</button>
                                     </form>
                                 </div>
                             </div>

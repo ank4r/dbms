@@ -1,42 +1,19 @@
-<?php
-   include('../login/session.php');
-   include('../login/info.php');
-   $fac_id = get_faculty_id($_SESSION['login_id']);
-   $result = get_course_for_faculty($fac_id);
-   $course_id = 1;
-   $topic_id = 1;
-   $sub_topic_id = 1;
-   if(isset($_POST['select_course'])){
-        $course_id = $_POST['select_course'];
-        $result_topic = get_topics_for_course($course_id);
-        if(isset($_POST['select_topic'])){
-            $topic_id = $_POST['select_topic']
-            $result_sub_topic = get_sub_topics_for_course($topic_id);
-        }
-    }
-?>
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Free Bootstrap Admin Theme : Master</title>
+    <title>Free Bootstrap Admin Template : Dream</title>
 	<!-- Bootstrap Styles-->
-    <link href="../dashboard/assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
-    <link href="../dashboard/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+     <!-- Morris Chart Styles-->
+    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
         <!-- Custom Styles-->
-    <link href="../dashboard/assets/css/custom-styles.css" rel="stylesheet" />
+    <link href="assets/css/custom-styles.css" rel="stylesheet" />
      <!-- Google Fonts-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-   <script type="text/javascript">
-        function show() { document.getElementById('area').style.display = 'block';
-                          document.getElementById('area3').style.display = 'block';
-                            }
-        function hide() { document.getElementById('area').style.display = 'none';
-                          document.getElementById('area3').style.display = 'none';
-                         }
-    </script>
 </head>
 <body>
     <div id="wrapper">
@@ -269,24 +246,52 @@
                         <a href="index.php"><i class="fa fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="ui-elements.php"><i class="fa fa-desktop"></i> Chat Forum</a>
+                        <a href="ui-elements.php"><i class="fa fa-desktop"></i> UI Elements</a>
                     </li>
 					<li>
-                        <a href="chart.php"><i class="fa fa-bar-chart-o"></i> Charts</a>
+                        <a href="chart.php" class="active-menu"><i class="fa fa-bar-chart-o"></i> Charts</a>
                     </li>
                     <li>
-                        <a href="../wdCalendar/sample.php"><i class="fa fa-qrcode"></i> Event Calender</a>
+                        <a href="tab-panel.php"><i class="fa fa-qrcode"></i> Tabs & Panels</a>
                     </li>
                     
                     <li>
                         <a href="table.php"><i class="fa fa-table"></i> Responsive Tables</a>
                     </li>
                     <li>
-                        <a href="form.php" class="active-menu"><i class="fa fa-edit"></i> Upload Content </a>
+                        <a href="form.php"><i class="fa fa-edit"></i> Forms </a>
                     </li>
 
+
                     <li>
-                        <a href="course.php"><i class="fa fa-fw fa-file"></i> Courses Teaching</a>
+                        <a href="#"><i class="fa fa-sitemap"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">Second Level Link</a>
+                            </li>
+                            <li>
+                                <a href="#">Second Level Link</a>
+                            </li>
+                            <li>
+                                <a href="#">Second Level Link<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="empty.php"><i class="fa fa-fw fa-file"></i> Empty Page</a>
                     </li>
                 </ul>
 
@@ -299,131 +304,65 @@
 			 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
-                            Upload Course Content
+                            Charts <small>Show up your stats</small>
                         </h1>
                     </div>
                 </div> 
                  <!-- /. ROW  -->
-              <div class="row">
-                <div class="col-lg-12">
+             
+                <div class="row"> 
+                    
+                      
+                               <div class="col-md-6 col-sm-12 col-xs-12">                     
                     <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <form role="form" action="submit.php" method="post" enctype="multipart/form-data">
-                                        <div class="form-group">
-                                            <label>Selects Course</label>
-                                            <select class="form-control" id="select_course" onchange="this.form.submit()">
-                                                <?php   
-                                                     
-                                                                                              
-                                                  /*$connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
-                                                  mysql_select_db('dbms');
-                                                  $table=mysql_query('SELECT * FROM courset WHERE facID=1 ');
-                                                  while($row=mysql_fetch_array($table))
-                                                  {
-                                                      $number=$row['id'];
-                                                      $smark=$row['facID'];
-                                                      $smark1=$row['courseID'];
-                                                      echo "<option>". $cname_id . "</option>";
-                                                  }*/
-                                                  foreach($result as $option) {
-                                                    $cname_id = $option['course_name'] . "-[" . $option['c_id'] . "]";
-                                                    echo '<option value="' . $option['c_id'] . '">'. $cname_id . '</option>';
-                                                    }
-                                                //mysql_close();
-                                                ?>
-                                            </select>
-                                            <label>Selects Topic</label>
-                                            <select class="form-control" id="select_topic" onchange="this.form.submit()">
-                                                <option>Add new Topic </option>
-                                                <?php
-                                                  foreach($result_topic as $option) {
-                                                    $cname_id = $option['top_name'] . '[' . $option['top_id'];
-                                                    echo '<option value="' . $option['top_id'] . '">'. $cname_id . '</option>';
-                                                    }
-                                                  /*$connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
-                                                  mysql_select_db('dbms');
-                                                  $table=mysql_query('SELECT * FROM courset WHERE facID=1 ');
-                                                  while($row=mysql_fetch_array($table))
-                                                  {
-                                                      $number=$row['id'];
-                                                      $smark=$row['facID'];
-                                                      $smark1=$row['courseID'];
-                                                  }
-                                                mysql_close();*/
-                                                ?>
-                                            </select>
-                                            <input type="text" id="area1" name="area1" placeholder="Topic"> 
-                                            </br>
-                                            </br>
-                                            </br>
-                                            <label>Select Sub-Topic</label>
-                                            <select class="form-control" id="select_sub_topic" onchange="this.form.submit()">
-                                                <option>Add new Sub-Topic </option>
-                                                <?php                                                   
-                                                  /*$connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
-                                                  mysql_select_db('dbms');
-                                                  $table=mysql_query('SELECT * FROM courset WHERE facID=1 ');
-                                                  while($row=mysql_fetch_array($table))
-                                                  {
-                                                      $number=$row['id'];
-                                                      $smark=$row['facID'];
-                                                      $smark1=$row['courseID'];
-                                                  ?>
-                                                  <option><?php echo $smark1 ?></option>
-                                                <?php }
-                                                mysql_close();*/
-                                                foreach($result_topic as $option) {
-                                                    $cname_id = $option['sub_name'] . "[" . $option['sub_id'];
-                                                    echo '<option value="' . $option['sub_id'] . '">'. $cname_id . '</option>';
-                                                    }
-                                                ?>
-                                            </select>
-                                            <input type="text" id="area2" name="area2" placeholder="Sub-Topic">
-                                            </br>
-                                            </br>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Type Of Content</label>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="lecture" checked="" onclick="show();">Lecture
-                                                    <br/>
-                                                    <input type="url" id="area" name="area" placeholder="video lecture url"> 
-                                                    <br/>
-                                                    <textarea id="area3" name="area3" placeholder="Lecture Transcription" cols="50" rows="5"></textarea>
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="assignment" onclick="hide();">Assignment
-                                                </label>
-                                            </div>
-                                            <div class="radio">
-                                                <label>
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios3" value="quiz" onclick="hide();">Quiz
-                                                </label>
-                                            </div>
-                                            </br>
-                                            </br>
-                                            <label>File input</label>
-                                            <input type="file" name="fileToUpload" id="fileToUpload" required>
-                                        </div>
-                                        <button type="submit" class="btn btn-default" name="submit">Submit</button>
-                                        <button type="reset" class="btn btn-default" onclick='window.location.reload();'>Reset</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- /.row (nested) -->
+                        <div class="panel-heading">
+                            Bar Chart
                         </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
+                        <div class="panel-body">
+                            <div id="morris-bar-chart"></div>
+                        </div>
+                    </div>            
                 </div>
-                <!-- /.col-lg-12 -->
-            </div>
-			</div>
+                      <div class="col-md-6 col-sm-12 col-xs-12">                     
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Area Chart
+                        </div>
+                        <div class="panel-body">
+                            <div id="morris-area-chart"></div>
+                        </div>
+                    </div>            
+                </div> 
+                
+           </div>
+                 <!-- /. ROW  -->
+                <div class="row">                     
+                      
+                               <div class="col-md-6 col-sm-12 col-xs-12">                     
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Line Chart
+                        </div>
+                        <div class="panel-body">
+                            <div id="morris-line-chart"></div>
+                        </div>
+                    </div>            
+                </div>
+                      <div class="col-md-6 col-sm-12 col-xs-12">                     
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Donut Chart
+                        </div>
+                        <div class="panel-body">                            
+							<div id="morris-donut-chart"></div>
+                        </div>
+                    </div>            
+                </div> 
+                
+           </div>
+                 <!-- /. ROW  -->
+				 <footer><p>All right reserved. Template by: <a href="http://webthemez.com">WebThemez</a></p></footer>
+				</div>
              <!-- /. PAGE INNER  -->
             </div>
          <!-- /. PAGE WRAPPER  -->
@@ -431,13 +370,16 @@
      <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
-    <script src="../dashboard/assets/js/jquery-1.10.2.js"></script>
+    <script src="assets/js/jquery-1.10.2.js"></script>
       <!-- Bootstrap Js -->
-    <script src="../dashboard/assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
     <!-- Metis Menu Js -->
-    <script src="../dashboard/assets/js/jquery.metisMenu.js"></script>
+    <script src="assets/js/jquery.metisMenu.js"></script>
+     <!-- Morris Chart Js -->
+     <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="assets/js/morris/morris.js"></script>
       <!-- Custom Js -->
-    <script src="../dashboard/assets/js/custom-scripts.js"></script>
+    <script src="assets/js/custom-scripts.js"></script>
     
    
 </body>

@@ -10,6 +10,7 @@ include('helper_modules.php');
 	relationTopic_SubTopic();//5
 	relationSubTopic_Lecture();//6
 	relationCourse_Topic();//7
+	createCalenderTable();//8
 
 	exit();
 ?>

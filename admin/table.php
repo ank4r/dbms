@@ -1,15 +1,10 @@
-﻿<?php
-   include('../login/session.php');
-
-?>
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Free Bootstrap Admin html Template : Master</title>
-    <!-- Bootstrap Styles-->
+	<!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
     <link href="assets/css/font-awesome.css" rel="stylesheet" />
@@ -32,7 +27,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php"><i class="fa fa-comments"></i> <strong>KGP Course Management </strong></a>
+                <a class="navbar-brand" href="index.php"><i class="fa fa-comments"></i> <strong>MASTER </strong></a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -236,7 +231,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                       <li><a href="../login/logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -252,13 +247,10 @@
                     <li>
                         <a href="index.php"><i class="fa fa-dashboard"></i> Dashboard</a>
                     </li>
-                     <li>
-                        <a href="courses.php"><i class="fa fa-book"></i> My Courses</a>
-                    </li>
                     <li>
                         <a href="ui-elements.php"><i class="fa fa-desktop"></i> UI Elements</a>
                     </li>
-                    <li>
+					<li>
                         <a href="chart.php"><i class="fa fa-bar-chart-o"></i> Charts</a>
                     </li>
                     <li>
@@ -311,7 +303,7 @@
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
             <div id="page-inner">
-             <div class="row">
+			 <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
                             Tables Page <small>Responsive tables</small>

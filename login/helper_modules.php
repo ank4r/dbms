@@ -32,6 +32,7 @@ function createMembersTable()
       'age INTEGER NOT NULL CHECK (age>0 AND age<120),'.
       'sex BOOLEAN NOT NULL,'. // true denotes male, false -> female
       'bday DATE NOT NULL,'.
+      'rollplay INT NOT NULL,'.   //0->student 1->faculty 2->admin 3->parent
       'email varchar(50) NOT NULL,'.
       'PRIMARY KEY(id))';
       
@@ -189,25 +190,6 @@ function relationCourse_Topic()
    endDatabaseConnection($conn);
 }
 
-
-function dropTable($tablename)
-{
-   $conn=connectToDatabase();
-
-   $sql='DROP TABLE '.$tablename;
-   $retval=mysql_query($sql,$conn);
-   
-   if(!$retval )
-   {
-     die('Could not execute query: ' . mysql_error());
-   }
-   else{
-      echo "Droppped Table ". $tablename." successfully";
-   }
-    endDatabaseConnection($conn);
-}
-
-
 function createCoursesTable()
 {
    $conn=connectToDatabase();
@@ -232,6 +214,63 @@ function createCoursesTable()
    }
 
    endDatabaseConnection();
+}
+
+
+function createCalenderTable()
+{
+   $conn=connectToDatabase();
+   $sql= 'SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO"';
+   $retval=mysql_query($sql,$conn);
+   if(!$retval )
+   {
+     die('Could not get data: ' . mysql_error());
+   }
+   else{
+      echo "SET SQL_MODE successfully";
+   }
+
+   $sql='CREATE TABLE `jqcalendar` ('.
+     '`Id` int(11) NOT NULL auto_increment,'.
+     '`Subject` varchar(1000) character set utf8 default NULL,'.
+     '`Location` varchar(200) character set utf8 default NULL,'.
+     '`Description` varchar(255) character set utf8 default NULL,'.
+     '`StartTime` datetime default NULL,'.
+     '`EndTime` datetime default NULL,'.
+     '`IsAllDayEvent` smallint(6) NOT NULL,'.
+     '`Color` varchar(200) character set utf8 default NULL,'.
+     '`RecurringRule` varchar(500) character set utf8 default NULL,'.
+     'PRIMARY KEY  (`Id`)'.
+   ') ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4' ;
+      
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data: ' . mysql_error());
+   }
+   else{
+      echo "Created Calendar Table successfully";
+   }
+
+   endDatabaseConnection();
+}
+
+function dropTable($tablename)
+{
+   $conn=connectToDatabase();
+
+   $sql='DROP TABLE '.$tablename;
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not execute query: ' . mysql_error());
+   }
+   else{
+      echo "Droppped Table ". $tablename." successfully";
+   }
+    endDatabaseConnection($conn);
 }
 
 ?>

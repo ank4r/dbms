@@ -1,5 +1,5 @@
 <?php
-include 'helper_modules.php';
+include('helper_modules.php');
 
 	dropTable('subtoplec');
    dropTable('topsubtop');
@@ -11,6 +11,7 @@ include 'helper_modules.php';
    
    dropTable('topics');
    dropTable('subtopics');
+   dropTable('jqcalendar');
   
    	
 	exit();
