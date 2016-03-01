@@ -1,7 +1,12 @@
 <?php
    include('../login/session.php');
    include('../login/info.php');
-   $fac_id = get_faculty_id($_SESSION['login_id']);
+   include('../login/helper_modules.php');
+   /*ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);*/
+    if(isset($_SESSION['login_user']))
+        $fac_id = get_fac_id($_SESSION['login_id']);
    $result = get_course_for_faculty($fac_id);
    $course_id = 1;
    $topic_id = 1;
@@ -10,7 +15,7 @@
         $course_id = $_POST['select_course'];
         $result_topic = get_topics_for_course($course_id);
         if(isset($_POST['select_topic'])){
-            $topic_id = $_POST['select_topic']
+            $topic_id = $_POST['select_topic'];
             $result_sub_topic = get_sub_topics_for_course($topic_id);
         }
     }
@@ -32,9 +37,11 @@
    <script type="text/javascript">
         function show() { document.getElementById('area').style.display = 'block';
                           document.getElementById('area3').style.display = 'block';
+                          document.getElementById('area5').style.display = 'block';
                             }
         function hide() { document.getElementById('area').style.display = 'none';
                           document.getElementById('area3').style.display = 'none';
+                          document.getElementById('area5').style.display = 'none';
                          }
     </script>
 </head>
@@ -313,7 +320,7 @@
                                     <form role="form" action="submit.php" method="post" enctype="multipart/form-data">
                                         <div class="form-group">
                                             <label>Selects Course</label>
-                                            <select class="form-control" id="select_course" onchange="this.form.submit()">
+                                            <select class="form-control" name="select_course" id="select_course" onchange="this.form.submit()">
                                                 <?php   
                                                      
                                                                                               
@@ -335,8 +342,8 @@
                                                 ?>
                                             </select>
                                             <label>Selects Topic</label>
-                                            <select class="form-control" id="select_topic" onchange="this.form.submit()">
-                                                <option>Add new Topic </option>
+                                            <select class="form-control" name="select_topic" id="select_topic" onchange="this.form.submit()">
+                                                <option value="newtopic">Add new Topic </option>
                                                 <?php
                                                   foreach($result_topic as $option) {
                                                     $cname_id = $option['top_name'] . '[' . $option['top_id'];
@@ -359,8 +366,8 @@
                                             </br>
                                             </br>
                                             <label>Select Sub-Topic</label>
-                                            <select class="form-control" id="select_sub_topic" onchange="this.form.submit()">
-                                                <option>Add new Sub-Topic </option>
+                                            <select class="form-control" name="select_sub_topic" id="select_sub_topic" onchange="this.form.submit()">
+                                                <option value="newsubtopic">Add new Sub-Topic </option>
                                                 <?php                                                   
                                                   /*$connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
                                                   mysql_select_db('dbms');
@@ -389,6 +396,8 @@
                                             <div class="radio">
                                                 <label>
                                                     <input type="radio" name="optionsRadios" id="optionsRadios1" value="lecture" checked="" onclick="show();">Lecture
+                                                    <br/>
+                                                    <input type="text" id="area5" name="area5" placeholder="lecture name"> 
                                                     <br/>
                                                     <input type="url" id="area" name="area" placeholder="video lecture url"> 
                                                     <br/>

@@ -24,7 +24,7 @@ include 'helper_modules.php';
 
       echo "userid : ".$_POST["Username"]." pwd : ".$_POST["Password"];
    	
-	$sql='SELECT fname FROM members WHERE userid=\''.$_POST["Username"].'\' and pwd=\''.$_POST["Password"].'\'';
+	$sql='SELECT fname,id FROM members WHERE userid=\''.$_POST["Username"].'\' and pwd=\''.$_POST["Password"].'\'';
 
    //echo "\n".$sql."\n";
 
@@ -37,12 +37,14 @@ include 'helper_modules.php';
 
 	$i=0;
    $myfname="";
+   $myid = "";
 
 	while($row = mysql_fetch_assoc($retval))
 	{
 		$i=1;
 		echo "Welcome {$row['fname']} !!";
       $myfname = $row['fname'];
+      $myid = $row['id'];
 		break;
 	}
    if($i==0)
@@ -53,6 +55,7 @@ include 'helper_modules.php';
        echo "\nLogined successfully\n";
 
       $_SESSION['login_user'] = $myfname;
+      $_SESSION['login_id'] = $myid;
         
       header('Location: welcome.php');
 
