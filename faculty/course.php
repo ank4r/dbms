@@ -1,6 +1,17 @@
 ﻿<?php
-   include('../login/session.php');
-   include('../login/info.php');
+    include('../login/session.php');
+    include('../login/info.php');
+    include('../login/helper_modules.php');
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    $result = array();
+     $resultInvited = array();
+    if(isset($_SESSION['role_id'])){
+        $fac_id = $_SESSION['role_id'];
+        $result = get_course_for_faculty($fac_id);
+        $resultInvited = display_course_for_fac($fac_id);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -252,18 +263,13 @@
                     <li>
                         <a href="ui-elements.php"><i class="fa fa-desktop"></i> Chat Forum</a>
                     </li>
-					<li>
-                        <a href="chart.php"><i class="fa fa-bar-chart-o"></i> Charts</a>
-                    </li>
+		
                     <li>
                         <a href="../wdCalendar/sample.php"><i class="fa fa-qrcode"></i> Event Calender</a>
                     </li>
                     
                     <li>
-                        <a href="table.php"><i class="fa fa-table"></i> Responsive Tables</a>
-                    </li>
-                    <li>
-                        <a href="form.php"><i class="fa fa-edit"></i> Upload Content </a>
+                        <a href="form.php"><i class="fa fa-edit"> </i> Upload Content </a>
                     </li>
                     <li>
                         <a class="active-menu" href="course.php"><i class="fa fa-fw fa-file"></i> Courses Teaching</a>
@@ -288,21 +294,24 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Faculty ID</th>
+                                            <th>Course Name</th>
                                             <th>Course ID</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                          $connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
-                                          mysql_select_db('dbms');
+                                          //$connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
+                                          //mysql_select_db('dbms');
 
-                                          $table=mysql_query('SELECT * FROM courset WHERE facID=1 ');
-                                          while($row=mysql_fetch_array($table))
+                                          //$table=mysql_query('SELECT * FROM courset WHERE facID=1 ');
+                                          
+                                          $num = 1;
+                                          foreach($result as $row)
                                           {
-                                              $number=$row['id'];
-                                              $smark=$row['facID'];
-                                              $smark1=$row['courseID'];
+                                              $number=$num;
+                                              $smark=$row['course_name'];
+                                              $smark1=$row['c_id'];
+                                              $num++;
                                           ?>
                                           <tr>
                                             <td><?php echo $number ?></td>
@@ -310,11 +319,38 @@
                                             <td><?php echo $smark1 ?></td>
                                           </tr>
                                         <?php } 
-                                        mysql_close();
+                                        //mysql_close();
                                         ?>
                                     </tbody>
                                 </table>
                             </div>
+                            <form role="form" action="appCourse.php" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label>Teach Course</label>
+                                    <select class="form-control" name="select_course" id="select_course">
+                                        <?php   
+                                             
+                                                                                      
+                                          /*$connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
+                                          mysql_select_db('dbms');
+                                          $table=mysql_query('SELECT * FROM courset WHERE facID=1 ');
+                                          while($row=mysql_fetch_array($table))
+                                          {
+                                              $number=$row['id'];
+                                              $smark=$row['facID'];
+                                              $smark1=$row['courseID'];
+                                              echo "<option>". $cname_id . "</option>";
+                                          }*/
+                                          foreach($resultInvited as $option) {
+                                            $cname_id = $option['course_name'] . "-[" . $option['c_id'] . "]";
+                                            echo '<option value="' . $option['c_id'] . '">'. $cname_id . '</option>';
+                                            }
+                                        //mysql_close();
+                                        ?>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-default" name="submit">Submit</button>
+                            </form>
                         </div>
                     </div>
                     </div>

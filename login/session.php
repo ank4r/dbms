@@ -4,13 +4,15 @@
    
    $user_check = $_SESSION['login_user'];
 
-   $sql = "SELECT userid FROM members where fname = \'".$user_check." \' ";
+   $sql = "SELECT userid,id,fname FROM members where id = \'".$_SESSION['login_id']." \' ";
    
    $ses_sql = mysqli_query($db,$sql);
    
    $row = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC);
    
    $login_session = $row['fname'];
+  	
+   echo "login id : " .$_SESSION['login_id'];
    
    if(!isset($_SESSION['login_user'])){
 	    header("location:../login/login.php");

@@ -1,7 +1,13 @@
 <?php
    include('session.php');
 
-   header("Location: ../dashboard/index.php");
+   if($_SESSION['role'] == "Faculty")
+   	header("Location: ../faculty/index.php");
+   else if($_SESSION['role'] == "Admin")
+   	header("Location: ../dashboard/admin.php");
+   else if($_SESSION['role'] == "Student")
+   	header("Location: ../dashboard/index.php");
+   
 ?>
 <html>
    

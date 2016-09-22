@@ -2,6 +2,14 @@
 <?php
    include('../login/session.php');
 
+   ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
+   if($_SESSION['role'] == "Student")
+        {}
+    else exit();
+
 ?>
 
 <!DOCTYPE html>
@@ -254,13 +262,25 @@
                     <li>
                         <a class="active-menu" href="index.php"><i class="fa fa-dashboard"></i> Dashboard</a>
                     </li>
-                     <li>
+                    <li>
                         <a href="courses.php"><i class="fa fa-book"></i> My Courses</a>
                     </li>
                     <li>
+                        <a href="enroll.php"><i class="fa fa-plus-square"></i> Enroll </a>
+                    </li>
+                    <li>
+                        <a href="forum.php"><i class="fa fa-comments"></i> Chat Forum </a>
+                    </li>
+                     <li>
+                        <a href="../wdCalendar/sample.php"><i class="fa fa-calendar"></i> Events Calendar </a>
+                    </li>
+
+                   
+                     <?php /*
+                    <li>
                         <a href="ui-elements.php"><i class="fa fa-desktop"></i> UI Elements</a>
                     </li>
-					<li>
+                    <li>
                         <a href="chart.php"><i class="fa fa-bar-chart-o"></i> Charts</a>
                     </li>
                     <li>
@@ -302,9 +322,12 @@
                             </li>
                         </ul>
                     </li>
+
                     <li>
                         <a href="empty.php"><i class="fa fa-fw fa-file"></i> Empty Page</a>
                     </li>
+
+                    */ ?>
                 </ul>
 
             </div>

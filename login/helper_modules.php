@@ -8,7 +8,7 @@ function connectToDatabase()
    }
    
    mysql_select_db('dbms');
-      //echo 'Connected successfully';
+      //echo 'Connected successfully <br>';
    return $conn;
 }
 
@@ -39,10 +39,10 @@ function createMembersTable()
    
    if(!$retval )
    {
-     die('Could not get data: ' . mysql_error());
+     die('Could not get data 100000: ' . mysql_error());
    }
    else{
-      echo "Created Members Table successfully";
+      echo "Created Members Table successfully <br>";
    }
    endDatabaseConnection($conn);
 } 
@@ -55,27 +55,27 @@ function createLecturesTable()
       'lec_id INTEGER AUTO_INCREMENT NOT NULL,'.
       'lec_name varchar(50) NOT NULL,'.
       'vdl varchar(500),'.
-      'lec_notes varchar(500) NOT NULL,'.
+      'lec_notes varchar(5000) NOT NULL,'.
       'rel_date Date NOT NULL,'.
       'fac_id INT NOT NULL,'.
-      'topics varchar(50),'.
+      'topics varchar(500),'.
       'PRIMARY KEY(lec_id))';
       
    $retval=mysql_query($sql,$conn);
    
    if(!$retval )
    {
-     die('Could not get data: ' . mysql_error());
+     die('Could not get data 2: ' . mysql_error());
    }
    else{
-      echo "Created Lectures Table successfully";
+      echo "Created Lectures Table successfully <br>";
    }
 
    endDatabaseConnection($conn);
 }
 
 
-function createSubTopicTable()
+function createSubTopicsTable()
 {
    $conn=connectToDatabase();
 
@@ -88,16 +88,16 @@ function createSubTopicTable()
    
    if(!$retval )
    {
-     die('Could not get data: ' . mysql_error());
+     die('Could not get data 4: ' . mysql_error());
    }
    else{
-      echo "Created SubTopics Table successfully";
+      echo "Created SubTopics Table successfully <br>";
    }
 
    endDatabaseConnection($conn);
 }
 
-function createTopicTable()
+function createTopicsTable()
 {
    $conn=connectToDatabase();
 
@@ -110,10 +110,10 @@ function createTopicTable()
    
    if(!$retval )
    {
-     die('Could not get data: ' . mysql_error());
+     die('Could not get data 5: ' . mysql_error());
    }
    else{
-      echo "Created Topics Table successfully";
+      echo "Created Topics Table successfully <br>";
    }
 
    endDatabaseConnection($conn);
@@ -132,10 +132,10 @@ function createQuizTable()
    
    if(!$retval )
    {
-     die('Could not get data: ' . mysql_error());
+     die('Could not get data 8: ' . mysql_error());
    }
    else{
-      echo "Created Topics Table successfully";
+      echo "Created Topics Table successfully <br>";
    }
 
    endDatabaseConnection($conn);
@@ -154,10 +154,10 @@ function createAssignTable()
    
    if(!$retval )
    {
-     die('Could not get data: ' . mysql_error());
+     die('Could not get data 7: ' . mysql_error());
    }
    else{
-      echo "Created Topics Table successfully";
+      echo "Created Topics Table successfully <br>";
    }
 
    endDatabaseConnection($conn);
@@ -177,10 +177,10 @@ function relationTopic_SubTopic()
    
    if(!$retval )
    {
-     die('Could not get data1: ' . mysql_error());
+     die('Could not get data 11: ' . mysql_error());
    }
    else{
-      echo "Created Topic_SubTopic Table successfully";
+      echo "Created Topic_SubTopic Table successfully <br>";
    }
 
    endDatabaseConnection($conn);
@@ -200,10 +200,10 @@ function relationSubTopic_Lecture()
    
    if(!$retval )
    {
-     die('Could not get data2: ' . mysql_error());
+     die('Could not get data 12: ' . mysql_error());
    }
    else{
-      echo "Created SubTopic_Lecture Table successfully";
+      echo "Created SubTopic_Lecture Table successfully <br>";
    }
 
    endDatabaseConnection($conn);
@@ -223,10 +223,10 @@ function relationCourse_Topic()
    
    if(!$retval )
    {
-     die('Could not get data2: ' . mysql_error());
+     die('Could not get data 13: ' . mysql_error());
    }
    else{
-      echo "Created relationCourse_Topic Table successfully";
+      echo "Created relationCourse_Topic Table successfully <br>";
    }
 
    endDatabaseConnection($conn);
@@ -246,10 +246,10 @@ function relationSubTopic_Quiz()
    
    if(!$retval )
    {
-     die('Could not get data2: ' . mysql_error());
+     die('Could not get data 15: ' . mysql_error());
    }
    else{
-      echo "Created SubTopic_Lecture Table successfully";
+      echo "Created SubTopic_Lecture Table successfully <br>";
    }
 
    endDatabaseConnection($conn);
@@ -269,10 +269,10 @@ function relationSubTopic_Assign()
    
    if(!$retval )
    {
-     die('Could not get data2: ' . mysql_error());
+     die('Could not get data 16: ' . mysql_error());
    }
    else{
-      echo "Created SubTopic_Lecture Table successfully";
+      echo "Created SubTopic_Lecture Table successfully <br>";
    }
 
    endDatabaseConnection($conn);
@@ -290,7 +290,7 @@ function dropTable($tablename)
      die('Could not execute query: ' . mysql_error());
    }
    else{
-      echo "Droppped Table ". $tablename." successfully";
+      echo "Droppped Table ". $tablename." successfully <br>";
    }
     endDatabaseConnection($conn);
 }
@@ -307,16 +307,18 @@ function createCoursesTable()
       'course_admin INTEGER NOT NULL,'.
       'air_date Date NOT NULL,'.
       'brief_overview varchar(1000) NOT NULL,'.
-      'PRIMARY KEY(c_id))';
+      'published BOOLEAN NOT NULL,'.
+      'PRIMARY KEY(c_id),'.
+      'FOREIGN KEY(course_admin) REFERENCES members(id))';
       
    $retval=mysql_query($sql,$conn);
    
    if(!$retval )
    {
-     die('Could not get data: ' . mysql_error());
+     die('Could not get data 3: '.mysql_error());
    }
    else{
-      echo "Created Courses Table successfully";
+      echo "Created Courses Table successfully <br>";
    }
 
    endDatabaseConnection();
@@ -335,10 +337,10 @@ function createFacultyTable() //tested
    
    if(!$retval )
    {
-     die('Could not get data: ' . mysql_error());
+     die('Could not get data 10: ' . mysql_error());
    }
    else{
-      echo "Created Topics Table successfully";
+      echo "Created Topics Table successfully <br>";
    }
 
    endDatabaseConnection($conn);
@@ -358,16 +360,16 @@ function relationCourse_Faculty()
    
    if(!$retval )
    {
-     die('Could not get data2: ' . mysql_error());
+     die('Could not get data 17: ' . mysql_error());
    }
    else{
-      echo "Created relationCourse_Faculty Table successfully";
+      echo "Created relationCourse_Faculty Table successfully <br>";
    }
 
    endDatabaseConnection($conn);
 }
 
-function createStudentTable()
+function createStudentsTable()
 {
    $conn=connectToDatabase();
    $sql='CREATE TABLE students('.
@@ -380,16 +382,16 @@ function createStudentTable()
    
    if(!$retval )
    {
-     die('Could not get data: ' . mysql_error());
+     die('Could not get data 6: ' . mysql_error());
    }
    else{
-      echo "Created Topics Table successfully";
+      echo "Created Topics Table successfully <br>";
    }
 
    endDatabaseConnection($conn);
 }
 
-function createAdminTable()
+function createAdminsTable()
 {
    $conn=connectToDatabase();
    $sql='CREATE TABLE admins('.
@@ -402,10 +404,10 @@ function createAdminTable()
    
    if(!$retval )
    {
-     die('Could not get data: ' . mysql_error());
+     die('Could not get data 9: ' . mysql_error());
    }
    else{
-      echo "Created Topics Table successfully";
+      echo "Created Topics Table successfully <br>";
    }
 
    endDatabaseConnection($conn);
@@ -547,14 +549,14 @@ function populate_lectures($subtop_id,$lec_name,$vdl,$lec_notes,$fac_id,$topics)
    $retval=mysql_query($sql,$conn);
    if(! $retval )
    {
-     die('Could not get data: ' . mysql_error());
+     die('Could not get data 7676: ' . mysql_error());
    }
    $lecid=mysql_insert_id();
    $sql = "INSERT INTO subtoplec SET sub_id=$subtop_id,lec_id=$lecid";
    $retval=mysql_query($sql,$conn);
    if(! $retval )
    {
-     die('Could not get data: ' . mysql_error());
+     die('Could not get data 239: ' . mysql_error());
    }
    endDatabaseConnection($conn);
    return $lecid;
@@ -564,17 +566,18 @@ function populate_subtopics($top_id,$sub_name)
 {
    $conn=connectToDatabase();
    $sql = "INSERT INTO subtopics SET sub_name='$sub_name'";
+   //echo "Querying".$sql;
    $retval=mysql_query($sql,$conn);
    if(! $retval )
    {
-     die('Could not get data: ' . mysql_error());
+     die('Could not get data 4000: ' . mysql_error());
    }
    $subid=mysql_insert_id();
    $sql = "INSERT INTO topsubtop SET top_id=$top_id,sub_id=$subid";
    $retval=mysql_query($sql,$conn);
    if(! $retval )
    {
-     die('Could not get data: ' . mysql_error());
+     die('Could not get data 40001: ' . mysql_error());
    }
    endDatabaseConnection($conn);
    return $subid;
@@ -587,14 +590,14 @@ function populate_topics($course_id,$top_name)
    $retval=mysql_query($sql,$conn);
    if(! $retval )
    {
-     die('Could not get data: ' . mysql_error());
+     die('Could not get data 3000: ' . mysql_error());
    }
    $topid=mysql_insert_id();
    $sql = "INSERT INTO coursetop SET c_id=$course_id,top_id=$topid";
    $retval=mysql_query($sql,$conn);
    if(! $retval )
    {
-     die('Could not get data: ' . mysql_error());
+     die('Could not get data 30001: ' . mysql_error());
    }
    endDatabaseConnection($conn);
    return $topid;
@@ -619,12 +622,10 @@ function get_course_for_faculty($fac_id)
    return $result;
 }
 
-
-
 function get_topics_for_course($course_id)
 {
    $conn=connectToDatabase();
-   $sql="SELECT coursetop.top_id, topics.top_name FROM topics INNER JOIN coursetop ON topics.top_id=coursetop.top_id WHERE coursetop.c_id=$course_id";
+   $sql="SELECT coursetop.top_id as tid, topics.top_name as tname FROM topics INNER JOIN coursetop ON topics.top_id=coursetop.top_id WHERE coursetop.c_id=$course_id";
    $retval=mysql_query($sql,$conn);
    
    if(!$retval )
@@ -643,7 +644,7 @@ function get_topics_for_course($course_id)
 function get_subtopics_for_topic($top_id)
 {
    $conn=connectToDatabase();
-   $sql="SELECT topsubtop.sub_id, subtopics.sub_name FROM subtopics INNER JOIN topsubtop ON subtopics.sub_id=topsubtop.sub_id WHERE topsubtop.top_id=$top_id";
+   $sql="SELECT topsubtop.sub_id as sid, subtopics.sub_name as sname FROM subtopics INNER JOIN topsubtop ON subtopics.sub_id=topsubtop.sub_id WHERE topsubtop.top_id=$top_id";
    $retval=mysql_query($sql,$conn);
    
    if(!$retval )
@@ -725,7 +726,7 @@ function get_fac_id($mem_id)
    {
      die('Could not get data: ' . mysql_error());
    }
-   $facid=3;
+   $facid=-1;
    while($row=mysql_fetch_assoc($retval))
    {
       $facid=$row['fac_id'];
@@ -744,7 +745,7 @@ function get_admin_id($mem_id)
    {
      die('Could not get data: ' . mysql_error());
    }
-   $adminid=3;
+   $adminid=-1;
    while($row=mysql_fetch_assoc($retval))
    {
       $adminid=$row['admin_id'];
@@ -757,18 +758,20 @@ function get_stud_id($mem_id)
 {
    $conn=connectToDatabase();
    $sql="SELECT students.stud_id FROM students WHERE students.mem_id = $mem_id";
+   //echo $sql;
    $retval=mysql_query($sql,$conn);
    
    if(!$retval )
    {
-     die('Could not get data: ' . mysql_error());
+     die('Could not get data 323: ' . mysql_error());
    }
-   $studid=3;
+   $studid=-1;
    while($row=mysql_fetch_assoc($retval))
    {
       $studid=$row['stud_id'];
       break;
    }
+   endDatabaseConnection($conn);
    return $studid;
 }
 function populate_faculty($mem_id) //tested
@@ -788,7 +791,7 @@ function populate_faculty($mem_id) //tested
 function populate_course($course_name,$course_category,$course_admin,$air_date,$brief_overview) 
 {
    $conn=connectToDatabase();
-   $sql = "INSERT INTO courses SET course_name='$course_name',course_category='$course_category',course_admin=$course_admin,air_date='$air_date',brief_overview='$brief_overview'";
+   $sql = "INSERT INTO courses SET course_name='$course_name',course_category='$course_category',course_admin=$course_admin,air_date='$air_date',brief_overview='$brief_overview' , published =0";
    $retval=mysql_query($sql,$conn);
    if(! $retval )
    {
@@ -827,10 +830,10 @@ function relationStudent_Course()
    
    if(!$retval )
    {
-     die('Could not get data1: ' . mysql_error());
+     die('Could not get data 14: ' . mysql_error());
    }
    else{
-      echo "Created Student_Course Table successfully";
+      echo "Created Student_Course Table successfully <br>";
    }
 
    endDatabaseConnection($conn);
@@ -886,6 +889,652 @@ function populate_assign($sub_id,$path)
    endDatabaseConnection($conn);
 }
 
+class Course
+{
+   function Course($c_id, $c_name, $c_cat, $c_admin, $c_air_date, $c_brief)
+   {
+      $this->c_id = $c_id;
+      $this->c_name = $c_name;
+      $this->c_cat = $c_cat;
+      $this->c_admin = $c_admin;
+      $this->c_air_date = $c_air_date;
+      $this->c_brief = $c_brief;
+   }
+}
+
+function getAllEnrolledCoursesofStudent($stud_id)
+{
+   $conn=connectToDatabase();
+
+   $sql="SELECT c_id,course_name,course_category,course_admin,air_date,brief_overview FROM studcourse NATURAL JOIN courses WHERE stud_id = $stud_id";
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data: 301' . mysql_error());
+   }
+
+   $course_ARRAY = array();
+   $i = 0;
+
+   while($row=mysql_fetch_assoc($retval))
+   {
+      $course_ARRAY[$i] = new Course($row['c_id'],$row['course_name'], $row['course_category'] , $row['course_admin'] , $row['air_date']  , $row['brief_overview'] ) ;
+      $i = $i + 1;
+   }
+
+   endDatabaseConnection($conn);
+
+   return $course_ARRAY;
+
+}
+
+function getAllUnenrolledCoursesofStudent($stud_id)
+{
+   $conn=connectToDatabase();
+
+   $sql="SELECT c_id,course_name,course_category,course_admin,air_date,brief_overview FROM courses WHERE c_id NOT IN (SELECT c_id FROM studcourse NATURAL JOIN courses WHERE stud_id = $stud_id);";
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data: 301' . mysql_error());
+   }
+
+   $course_ARRAY = array();
+   $i = 0;
+
+   while($row=mysql_fetch_assoc($retval))
+   {
+      $course_ARRAY[$i] = new Course($row['c_id'],$row['course_name'], $row['course_category'] , $row['course_admin'] , $row['air_date']  , $row['brief_overview'] ) ;
+      $i = $i + 1;
+   }
+
+   endDatabaseConnection($conn);
+
+   return $course_ARRAY;
+
+}
+
+function getIDofmember($userid)
+{
+   $conn = connectToDatabase();
+
+   $sql="SELECT id FROM members WHERE members.userid = '$userid'";
+
+   echo "Querying : ".$sql. "<br> ";
+
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data 302: ' . mysql_error());
+   }
+   $id=0;
+   while($row=mysql_fetch_assoc($retval))
+   {
+      $id = $row['id'];
+      break;
+   }
+
+   endDatabaseConnection($conn);
+   return $id;
+}
+
+function populate_admins($mem_id) //tested
+{
+   $conn=connectToDatabase();
+   $sql = "INSERT INTO admins SET mem_id=$mem_id";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data 303: ' . mysql_error());
+   }
+   $admin_id=mysql_insert_id();
+   endDatabaseConnection($conn);
+   return $admin_id;
+}
+
+function populate_parents($mem_id) //tested
+{
+   $conn=connectToDatabase();
+   $sql = "INSERT INTO parents SET mem_id=$mem_id";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data 304: ' . mysql_error());
+   }
+   $par_id=mysql_insert_id();
+   endDatabaseConnection($conn);
+   return $par_id;
+}
+
+function createParentsTable()
+{
+   $conn=connectToDatabase();
+   $sql='CREATE TABLE parents('.
+      'par_id INTEGER AUTO_INCREMENT NOT NULL,'.
+      'mem_id INTEGER NOT NULL,'.
+      'FOREIGN KEY(mem_id) REFERENCES members(id),'.
+      'PRIMARY KEY(par_id))';
+      
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data 305: ' . mysql_error());
+   }
+   else{
+      echo "Created Parents Table successfully <br> <br>";
+   }
+
+   endDatabaseConnection($conn);
+}
+
+
+function destroy_database()
+{
+   $conn=connectToDatabase();
+   $sql = "drop database dbms";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data : drop database ' . mysql_error());
+   }
+   $sql = "create database dbms";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data 306 : create database ' . mysql_error());
+   }
+   endDatabaseConnection($conn);
+}
+
+
+function populate_members($fname,$lname,$userid,$pwd,$age,$sex,$bday,$email,$role)
+{
+   $memid=get_mem_id($userid);
+   if($sex=='M')
+      $sex=1;
+   else 
+      $sex=0;
+   $conn=connectToDatabase();
+   if($memid==-1)
+   {
+      $sql = "INSERT INTO members SET fname='$fname',lname='$lname',userid='$userid',pwd='$pwd',age=$age,sex=$sex,bday='$bday',email='$email'";
+      $retval=mysql_query($sql,$conn);
+      if(!$retval)
+      {
+        echo $sql."<br>";
+        die('Could not get data: populate_members if($memid==-1) ' . mysql_error());
+      }
+      $memid=mysql_insert_id();
+   }
+   if($role=="Admin"){
+      $sql = "INSERT INTO admins SET mem_id=$memid";
+      $retval=mysql_query($sql,$conn);
+      if(! $retval )
+      {
+        die('Could not get data: populate_members ADMIN' . mysql_error());
+      }
+   }
+   else if($role=="Faculty"){
+      $sql = "INSERT INTO faculty SET mem_id=$memid";
+      $retval=mysql_query($sql,$conn);
+      if(! $retval )
+      {
+        die('Could not get data:populate_membersFACULTY ' . mysql_error());
+      }
+   }
+   else{
+      $sql = "INSERT INTO students SET mem_id=$memid";
+      $retval=mysql_query($sql,$conn);
+      if(! $retval )
+      {
+        die('Could not get data:populate_membersSTUDENTS ' . mysql_error());
+      }
+   }
+   endDatabaseConnection($conn);
+}
+
+function populate_members_mname($fname,$mname,$lname,$userid,$pwd,$age,$sex,$bday,$email,$role)
+{
+   $memid=get_mem_id($userid);
+   if($sex=='M')
+      $sex=1;
+   else 
+      $sex=0;
+   $conn=connectToDatabase();
+   if($memid==-1)
+   {
+      $sql = "INSERT INTO members SET fname='$fname',mname='$mname',lname='$lname',userid='$userid',pwd='$pwd',age=$age,sex='$sex',bday='$bday',email='$email'";
+      $retval=mysql_query($sql,$conn);
+      if(! $retval )
+      {
+        die('Could not get data: ' . mysql_error());
+      }
+      $memid=mysql_insert_id();
+   }
+   if($role=="Admin"){
+      $sql = "INSERT INTO admins SET mem_id=$memid";
+      $retval=mysql_query($sql,$conn);
+      if(! $retval )
+      {
+        die('Could not get data: ' . mysql_error());
+      }
+   }
+   else if($role=="Faculty"){
+      $sql = "INSERT INTO faculty SET mem_id=$memid";
+      $retval=mysql_query($sql,$conn);
+      if(! $retval )
+      {
+        die('Could not get data: ' . mysql_error());
+      }
+   }
+   else{
+      $sql = "INSERT INTO students SET mem_id=$memid";
+      $retval=mysql_query($sql,$conn);
+      if(! $retval )
+      {
+        die('Could not get data: ' . mysql_error());
+      }
+   }
+   endDatabaseConnection($conn);
+}
+
+function check_for_convenience($userid,$pwd)
+{
+   $conn=connectToDatabase();
+   $sql="SELECT id FROM members where userid='$userid'";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: ' . mysql_error());
+   }
+   $i=-1;
+   while($row=mysql_fetch_assoc($retval))
+   {
+      $i=0;
+      break;
+   }
+   if($i==0)
+   {
+      $sql="SELECT id FROM members where userid='$userid' and pwd='$pwd'";
+      $i=-1;
+      $retval=mysql_query($sql,$conn);
+      if(! $retval )
+      {
+        die('Could not get data: ' . mysql_error());
+      }
+      while($row=mysql_fetch_assoc($retval))
+      {
+         $i=0;
+         break;
+      }
+      if($i==-1)
+      {
+         endDatabaseConnection($conn);
+         return -1;
+      }
+   }
+   endDatabaseConnection($conn);
+   return 0;
+}
+
+
+function check_for_userid($userid,$role,$pwd)
+{
+   if(check_for_convenience($userid,$pwd)==-1)
+   {
+      //echo "Here";
+      return -1;
+   }
+   $conn=connectToDatabase();
+   if($role=="Faculty")
+   {
+      $sql = "SELECT faculty.fac_id FROM faculty INNER JOIN members ON members.id=faculty.mem_id WHERE members.userid='$userid'";
+      $retval=mysql_query($sql,$conn);
+      if(! $retval )
+      {
+        die('Could not get data: ' . mysql_error());
+      }
+      $fac_id=-1;
+      while($row=mysql_fetch_assoc($retval))
+      {
+         $fac_id=$row['fac_id'];
+         break;
+      }
+      if($fac_id!=-1)
+      {
+         return -1;
+      }
+   }
+   else if($role=="Admin")
+   {
+      $sql = "SELECT admins.admin_id FROM admins INNER JOIN members ON members.id=admins.mem_id WHERE members.userid='$userid'";
+      $retval=mysql_query($sql,$conn);
+      if(! $retval )
+      {
+        die('Could not get data: ' . mysql_error());
+      }
+      $admin_id=-1;
+      while($row=mysql_fetch_assoc($retval))
+      {
+         $admin_id=$row['admin_id'];
+         break;
+      }
+      if($admin_id!=-1)
+      {
+         return -1;
+      }
+   }
+   else{
+      $sql = "SELECT students.stud_id FROM students INNER JOIN members ON members.id=students.mem_id WHERE members.userid='$userid'";
+      $retval=mysql_query($sql,$conn);
+      if(! $retval )
+      {
+        die('Could not get data: ' . mysql_error());
+      }
+      $stud_id=-1;
+      while($row=mysql_fetch_assoc($retval))
+      {
+         $stud_id=$row['stud_id'];
+         break;
+      }
+      if($stud_id!=-1)
+      {
+         return -1;
+      }
+   }
+   return 0;
+}
+
+function check_for_login($userid,$pwd,$role)
+{
+   $conn=connectToDatabase();
+   if($role=="Faculty")
+   {
+      $sql = "SELECT faculty.fac_id,members.fname FROM faculty INNER JOIN members ON members.id=faculty.mem_id WHERE members.userid='$userid' and members.pwd='$pwd'";
+      $retval=mysql_query($sql,$conn);
+      if(! $retval )
+      {
+        die('Could not get data 318:  ' . mysql_error());
+      }
+      $fac_id=-1;
+      while($row=mysql_fetch_assoc($retval))
+      {
+         $fac_id=$row['fac_id'];
+         $fname=$row['fname'];
+         break;
+      }
+      $rtn=array($fac_id,$fname);
+      return $rtn;
+   }
+   else if($role=="Admin")
+   {
+      $sql = "SELECT admins.admin_id,members.fname FROM admins INNER JOIN members ON members.id=admins.mem_id WHERE members.userid='$userid' and members.pwd='$pwd'";
+      $retval=mysql_query($sql,$conn);
+      if(! $retval )
+      {
+        die('Could not get data 319: ' . mysql_error());
+      }
+      $admin_id=-1;
+      while($row=mysql_fetch_assoc($retval))
+      {
+         $admin_id=$row['admin_id'];
+         $fname=$row['fname'];
+         break;
+      }
+      $rtn=array($admin_id,$fname);
+      return $rtn;
+   }
+   else{
+      $sql = "SELECT students.stud_id,members.fname FROM students INNER JOIN members ON members.id=students.mem_id WHERE members.userid='$userid' and members.pwd='$pwd'";
+      $retval=mysql_query($sql,$conn);
+      if(! $retval )
+      {
+        die('Could not get data 320: ' . mysql_error());
+      }
+      $stud_id=-1;
+      $fname=" ";
+      while($row=mysql_fetch_assoc($retval))
+      {
+         $stud_id=$row['stud_id'];
+         $fname=$row['fname'];
+         break;
+      }
+      $rtn=array($stud_id,$fname);
+      return $rtn;
+   }
+}
+
+
+
+function relationUnassignCourse_Fac()
+{
+   $conn=connectToDatabase();
+
+   $sql='CREATE TABLE uncoursefac('.
+      'c_id INTEGER NOT NULL,'.
+      'fac_id INTEGER NOT NULL,'.
+      'FOREIGN KEY(c_id) REFERENCES courses(c_id),'.
+      'FOREIGN KEY(fac_id) REFERENCES faculty(fac_id))';
+      
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data unassigncoursefac: ' . mysql_error());
+   }
+   else{
+      echo "Created UnassignCourse_Fac Table successfully <br>";
+   }
+
+   endDatabaseConnection($conn);
+}
+
+function accept_course($fac_id,$course_id)
+{
+   $conn=connectToDatabase();
+   $sql = "DELETE FROM uncoursefac WHERE c_id=$course_id and fac_id=$fac_id";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: to delete' . mysql_error());
+   }
+   $sql = "INSERT INTO coursefac SET c_id=$course_id,fac_id=$fac_id";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: accept_course ' . mysql_error());
+   }
+   endDatabaseConnection($conn);
+}
+
+function get_member_name($mem_id)
+{
+   $conn=connectToDatabase();
+   $sql = "SELECT userid,fname,lname FROM members WHERE id=$mem_id";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: get_member_name' . mysql_error());
+   }
+   $row=mysql_fetch_assoc($retval);
+   endDatabaseConnection($conn);  
+   return $row;
+}
+
+function get_All_Faculty_for_Course($course_id)
+{
+    $conn=connectToDatabase();
+
+   $sql = "SELECT fname,lname FROM members,faculty,coursefac WHERE members.id=faculty.mem_id and coursefac.c_id = $course_id and faculty.fac_id = coursefac.fac_id";
+   //echo "Q : ".$sql;
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: 823' . mysql_error());
+   }
+   $faculty_names = array();  // array of faculty names
+
+   $i=0;
+   while($row=mysql_fetch_assoc($retval))
+   {
+      $faculty_names[$i] = $row['fname']." ".$row['lname'];
+     
+      $i = $i + 1;
+   }
+
+   endDatabaseConnection($conn);  
+   return $faculty_names;
+}
+
+function get_student_Count_for_Course($course_id)
+{
+    $conn=connectToDatabase();
+
+   $sql = "SELECT count(stud_id) as cnt FROM studcourse WHERE c_id = $course_id";
+   //echo "Q : ".$sql;
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: 833' . mysql_error());
+   }
+
+   $row=mysql_fetch_assoc($retval);
+
+   $stud_count = $row['cnt'];
+
+   endDatabaseConnection($conn);  
+   return $stud_count;
+}
+
+/*
+   $sql='CREATE TABLE lectures('.
+      'lec_id INTEGER AUTO_INCREMENT NOT NULL,'.
+      'lec_name varchar(50) NOT NULL,'.
+      'vdl varchar(500),'.
+      'lec_notes varchar(5000) NOT NULL,'.
+      'rel_date Date NOT NULL,'.
+      'fac_id INT NOT NULL,'.
+      'topics varchar(50),'.
+      'PRIMARY KEY(lec_id))';
+
+
+      $sql='CREATE TABLE subtoplec('.
+      'sub_id INTEGER NOT NULL,'.
+      'lec_id INTEGER NOT NULL,'.
+      'FOREIGN KEY(sub_id) REFERENCES subtopics(sub_id),'.
+      'FOREIGN KEY(lec_id) REFERENCES lectures(lec_id))';
+      */
+
+class Lecture
+{
+   function Lecture($lec_id, $lec_name, $vdl, $lec_notes, $lec_rel_date, $lec_fac_id , $lec_topics)
+   {
+      $this->lec_id = $lec_id;
+      $this->lec_name = $lec_name;
+      $this->vdl = $vdl;
+      $this->lec_notes = $lec_notes;
+      $this->lec_rel_date = $lec_rel_date;
+      $this->lec_fac_id = $lec_fac_id;
+      $this->lec_topics = $lec_topics;
+   }
+}
+
+function getAllEnrolledLecturesofSubtopic($sub_id)
+{
+   $conn=connectToDatabase();
+
+   $sql="SELECT lec_id,lec_name,vdl,lec_notes,rel_date,lectures.fac_id as fac_id_1,topics FROM subtoplec NATURAL JOIN lectures WHERE sub_id = $sub_id";
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data: 3021' . mysql_error());
+   }
+
+   $lecture_ARRAY = array();
+   $i = 0;
+
+   while($row=mysql_fetch_assoc($retval))
+   {
+      $lecture_ARRAY[$i] = new Lecture($row['lec_id'],$row['lec_name'], $row['vdl'] , $row['lec_notes'] , $row['rel_date']  , $row['fac_id_1'] , $row['topics'] ) ;
+      $i = $i + 1;
+   }
+
+   endDatabaseConnection($conn);
+
+   return $lecture_ARRAY;
+
+}
+
+
+function getFacultyName($fac_id)
+{
+        
+   $conn=connectToDatabase();
+
+  $sql = "SELECT fname,lname FROM faculty INNER JOIN members ON members.id=faculty.mem_id WHERE faculty.fac_id='$fac_id'";
+ // echo "Q : ".$sql;
+
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data: 30221' . mysql_error());
+   }
+
+   $row=mysql_fetch_assoc($retval);
+
+   $fac_name = $row['fname']." ".$row['lname'];
+   endDatabaseConnection($conn);
+
+   return $fac_name;
+}
+
+function populate_coursequery($course_id,$mem_id,$comment,$pertype)
+{
+   $conn=connectToDatabase();
+   $sql = "INSERT INTO coursequery SET c_id=$course_id,mem_id='$mem_id',comment='$comment',pertype=$pertype";
+   echo $sql;
+   $retval= mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: ' . mysql_error());
+   }
+   $facid = mysql_insert_id();
+   endDatabaseConnection($conn);
+   return $facid;
+}
+
+function createCourseQuery()
+{
+   $conn=connectToDatabase();
+
+   $sql='CREATE TABLE coursequery('.
+      'query_id INTEGER AUTO_INCREMENT NOT NULL,'.
+      'mem_id VARCHAR(50) NOT NULL,'.
+      'pertype INTEGER,'.
+      'comment VARCHAR(500),'.
+      'c_id INTEGER NOT NULL,'.
+      'FOREIGN KEY(c_id) REFERENCES courses(c_id),'.
+      'PRIMARY KEY(query_id))';
+      
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data: ' . mysql_error());
+   }
+   else{
+      echo "Created Calendar Table successfully <br>";
+   }
+
+   endDatabaseConnection();
+}
+
 function createCalenderTable()
 {
    $conn=connectToDatabase();
@@ -896,7 +1545,7 @@ function createCalenderTable()
      die('Could not get data: ' . mysql_error());
    }
    else{
-      echo "SET SQL_MODE successfully";
+      echo "SET SQL_MODE successfully <br>";
    }
 
    $sql='CREATE TABLE `jqcalendar` ('.
@@ -919,7 +1568,358 @@ function createCalenderTable()
      die('Could not get data: ' . mysql_error());
    }
    else{
-      echo "Created Calendar Table successfully";
+      echo "Created Calendar Table successfully <br>";
+   }
+
+   endDatabaseConnection();
+}
+
+
+function get_course_for_student($stu_id)
+{
+   $conn=connectToDatabase();
+
+   $sql="SELECT studcourse.c_id , courses.course_name FROM courses INNER JOIN studcourse ON courses.c_id=studcourse.c_id WHERE studcourse.stud_id=$stu_id";
+      
+  // echo $sql;
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data: ' . mysql_error());
+   }
+   $result=array();
+   while($row=mysql_fetch_assoc($retval))
+   {
+      $result[] = $row;
+   }
+   endDatabaseConnection($conn);
+   return $result;
+}
+
+function get_mem_id($userid)
+{
+   $conn=connectToDatabase();
+   $sql = "SELECT id FROM members WHERE userid='$userid'";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: get_member_id' . mysql_error());
+   }
+   $mem_id=-1;
+   while($row=mysql_fetch_assoc($retval))
+   {
+      $mem_id=$row['id'];
+   }
+   endDatabaseConnection($conn);  
+   return $mem_id;
+}
+
+function display_course_for_fac($fac_id)
+{
+   $conn=connectToDatabase();
+   $sql = "SELECT courses.c_id,courses.course_name,courses.course_admin FROM courses INNER JOIN uncoursefac ON uncoursefac.c_id=courses.c_id WHERE uncoursefac.fac_id=$fac_id";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: display_course_for_fac' . mysql_error());
+   }
+   $result=array();
+   $i=0;
+   while($row=mysql_fetch_assoc($retval))
+   {
+      $row1=get_member_name($row['course_admin']);
+      $result[$i]['c_id']=$row['c_id'];
+      $result[$i]['course_name']=$row['course_name'];
+      $result[$i]['course_admin']=$row['course_admin'];
+      $result[$i]['fname']=$row1['fname'];
+      $result[$i]['lname']=$row1['lname'];
+      $i=$i+1;
+   }
+   endDatabaseConnection($conn); 
+   return $result;
+}
+
+function invite_faculty($course_id,$fac_id)
+{
+   $conn=connectToDatabase();
+   $sql = "INSERT INTO uncoursefac SET c_id=$course_id,fac_id=$fac_id";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: invite_faculty' . mysql_error());
+   }
+   endDatabaseConnection($conn);
+}
+
+function uninvite_faculty($course_id,$fac_id)
+{
+   $conn=connectToDatabase();
+   $sql = "DELETE FROM uncoursefac WHERE c_id=$course_id and fac_id=$fac_id";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: invite_faculty' . mysql_error());
+   }
+   endDatabaseConnection($conn);  
+}
+
+function get_danger_course($user_id)
+{
+   $mem_id=get_mem_id($user_id);
+   $conn=connectToDatabase();
+   $curr_dt=date("Y-m-d");
+   $sql="SELECT * FROM courses WHERE courses.course_admin=$mem_id and DATEDIFF(courses.air_date,'$curr_dt')<0 and courses.published=false";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: get_danger_course' . mysql_error());
+   }
+   $result=array();
+   while($row=mysql_fetch_assoc($retval))
+   {
+      $result[]=$row;
+   }
+   endDatabaseConnection();
+   return $result;
+}  
+function get_warning_course($user_id)
+{
+   $mem_id=get_mem_id($user_id);
+   $conn=connectToDatabase();
+   $curr_dt=date("Y-m-d");
+   $sql="SELECT * FROM courses WHERE courses.course_admin=$mem_id and DATEDIFF(courses.air_date,'$curr_dt')<=3 and DATEDIFF(courses.air_date,'$curr_dt')>=0 and courses.published=false";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: get_warning_course' . mysql_error());
+   }
+   $result=array();
+   while($row=mysql_fetch_assoc($retval))
+   {
+      $result[]=$row;
+   }
+   endDatabaseConnection();
+   return $result;
+}
+
+function get_normal_course($user_id)
+{
+   $mem_id=get_mem_id($user_id);
+   $conn=connectToDatabase();
+   $curr_dt=date("Y-m-d");
+    //echo $user_id.$mem_id."dasdasdsada<br>";
+    //echo $curr_dt;
+   $sql="SELECT * FROM courses WHERE courses.course_admin=$mem_id and DATEDIFF(courses.air_date,'$curr_dt')>3 and courses.published=false";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: get_normal_course' . mysql_error());
+   }
+   $result=array();
+   while($row=mysql_fetch_assoc($retval))
+   {
+      $result[]=$row;
+   }
+   endDatabaseConnection();
+   return $result;
+}
+
+function get_success_course($user_id)
+{
+   $mem_id=get_mem_id($user_id);
+   $conn=connectToDatabase();
+   $curr_dt=date("Y-m-d");
+   $sql="SELECT * FROM courses WHERE courses.course_admin=$mem_id and courses.published=true";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: get_success_course' . mysql_error());
+   }
+   $result=array();
+   while($row=mysql_fetch_assoc($retval))
+   {
+      $result[]=$row;
+   }
+   endDatabaseConnection();
+   return $result;
+}
+
+function get_course_for_publishing($user_id)
+{
+   $mem_id=get_mem_id($user_id);
+   $conn=connectToDatabase();
+   $sql="SELECT * FROM courses WHERE courses.course_admin=$mem_id and courses.published=false";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: get_success_course' . mysql_error());
+   }
+   $result=array();
+   while($row=mysql_fetch_assoc($retval))
+   {
+      $result[]=$row;
+   }
+   endDatabaseConnection();
+   return $result;
+}
+
+function get_faculty_pending($course_id)
+{
+   $conn=connectToDatabase();
+   $sql="SELECT faculty.mem_id FROM uncoursefac INNER JOIN faculty ON uncoursefac.fac_id=faculty.fac_id WHERE uncoursefac.c_id=$course_id";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: get_faculty_pending' . mysql_error());
+   }
+   $result=array();
+   while($row=mysql_fetch_assoc($retval))
+   {
+      $result[]=$row;
+   }
+   endDatabaseConnection();
+   $rtn=array();
+   foreach ($result as $value) {
+      $rtn[]=get_member_name($value['mem_id']);
+   }
+   return $rtn;
+}
+
+function get_faculty_accepted($course_id)
+{
+   $conn=connectToDatabase();
+   $sql="SELECT faculty.mem_id FROM coursefac INNER JOIN faculty ON coursefac.fac_id=faculty.fac_id WHERE coursefac.c_id=$course_id";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: get_faculty_accepted' . mysql_error());
+   }
+   $result=array();
+   while($row=mysql_fetch_assoc($retval))
+   {
+      $result[]=$row;
+   }
+   endDatabaseConnection();
+   $rtn=array();
+   foreach ($result as $value) {
+      $rtn[]=get_member_name($value['mem_id']);
+   }
+   return $rtn;
+}
+
+
+function get_course_for_admin($user_id)
+{
+   $mem_id=get_mem_id($user_id);
+   $conn=connectToDatabase();
+    //echo $user_id.$mem_id."dasdasdsada<br>";
+    //echo $curr_dt;
+   $sql="SELECT * FROM courses WHERE courses.course_admin=$mem_id and courses.published=false";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: get_normal_course' . mysql_error());
+   }
+   $result=array();
+   while($row=mysql_fetch_assoc($retval))
+   {
+      $result[]=$row;
+   }
+   endDatabaseConnection();
+   return $result;
+}
+
+function delete_course($course_id)
+{
+   $conn=connectToDatabase();
+   $sql="DELETE FROM coursetop WHERE c_id=$course_id";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: delete_course1' . mysql_error());
+   }
+   $sql="DELETE FROM coursefac WHERE c_id=$course_id";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: delete_course2' . mysql_error());
+   }
+   $sql="DELETE FROM studcourse WHERE c_id=$course_id";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: delete_course3' . mysql_error());
+   }
+   $sql="DELETE FROM uncoursefac WHERE c_id=$course_id";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: delete_course4' . mysql_error());
+   }
+   $sql="DELETE FROM coursequery WHERE c_id=$course_id";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: delete_course3' . mysql_error());
+   }
+   $sql="DELETE FROM courses WHERE c_id=$course_id";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: delete_course3' . mysql_error());
+   }
+   endDatabaseConnection();
+}
+
+function publish_course($course_id)
+{
+   $conn=connectToDatabase();
+   $sql="UPDATE courses SET published=1 where c_id=$course_id";
+   $retval=mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: delete_course3' . mysql_error());
+   }
+   endDatabaseConnection();
+}
+
+function populate_adminquery($course_id,$mem_id,$comment,$pertype)
+{
+   $conn=connectToDatabase();
+   $sql = "INSERT INTO adminquery SET c_id=$course_id,mem_id='$mem_id',comment='$comment',pertype=$pertype";
+   //echo $sql;
+   $retval= mysql_query($sql,$conn);
+   if(! $retval )
+   {
+     die('Could not get data: ' . mysql_error());
+   }
+   $facid = mysql_insert_id();
+   endDatabaseConnection($conn);
+   return $facid;
+}
+
+function createAdminQuery()
+{
+   $conn=connectToDatabase();
+
+   $sql='CREATE TABLE adminquery('.
+      'query_id INTEGER AUTO_INCREMENT NOT NULL,'.
+      'mem_id VARCHAR(50) NOT NULL,'.
+      'pertype INTEGER,'.
+      'comment VARCHAR(500),'.
+      'c_id INTEGER NOT NULL,'.
+      'FOREIGN KEY(c_id) REFERENCES courses(c_id),'.
+      'PRIMARY KEY(query_id))';
+      
+   $retval=mysql_query($sql,$conn);
+   
+   if(!$retval )
+   {
+     die('Could not get data: ' . mysql_error());
+   }
+   else{
+      echo "Created Calendar Table successfully <br>";
    }
 
    endDatabaseConnection();

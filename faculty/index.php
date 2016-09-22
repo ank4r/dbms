@@ -265,9 +265,6 @@
                     </li>
                     
                     <li>
-                        <a href="table.php"><i class="fa fa-table"></i> Responsive Tables</a>
-                    </li>
-                    <li>
                         <a href="form.php"><i class="fa fa-edit"></i> Upload Content </a>
                     </li>
                     <li>

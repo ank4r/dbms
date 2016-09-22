@@ -1,32 +1,64 @@
-﻿<?php
+﻿﻿<?php
     include('../login/session.php');
     include('../login/info.php');
-    $flag=" koko";
-    $page = 1;
-    if(!isset($_POST['submit']))
+    include('../login/helper_modules.php');
+    /*ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);*/
+    if($_SESSION['role'] === "Faculty"){
+        $nouse = 0;
+    }
+    else
+        exit();
+    $flag=" ";
+    $page;
+    $page_name = "";
+    $mem_id = "";
+    $ptype= "";
+    $pval = 1;
+    if(isset($_SESSION['login_id'])){
+        $mem_id = $_SESSION['login_id'];
+        $ptype = $_SESSION['role'];
+        if($ptype === "Student")
+            $pval = 0;
+        $fac_id = $_SESSION['role_id'];
+        if($pval == 1)
+            $table = get_course_for_faculty($fac_id);
+        else
+            $table = get_course_for_student($fac_id);
+
+        if( count($table) > 0 )
+        {
+             $table_row = $table[0];
+             $page = $table_row['c_id'];
+             $page_name = $table_row['course_name'];
+        }
+        /*$connection = mysql_connect($dbhost, $dbuser, $dbpass); 
+        mysql_select_db('dbms');
+        $table = $_SESSION['login_id'];
+        mysql_close();*/
+    }
+
+    if(isset($_POST['course_id']))
     {
-        if(isset($_POST['select_course'])){
-            $page = $_POST['select_course'];
+        echo $_POST['course_id'];
+        $page = $_POST['course_id'];
+        $page_name = $_POST['course_name'];
+        $comment1 = $_POST['area3'];
+        //echo $page .  " " . $mem_id ." " . $comment1 . " " . $pval;
+        populate_coursequery($page,$mem_id,$comment1,$pval);
+        foreach ($table as $option) {
+            if($option['c_id'] === $page){
+                $page_name = $option['course_name'];
+            }
         }
     }
-    else{
-        $connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
-        mysql_select_db('dbms');
-
-        $sql = "INSERT INTO coursequery (courseID, userID, comment,pertype)
-        VALUES (3, 'Doe74','" . $_POST['area3'] . "' , 0)";
-
-        $retval = mysql_query($sql, $connection);
-        if (!$retval) {
-            $flag = $retval;
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        } else {
-            $flag = $sql;
-            echo "New record created successfully";
-        }
-        mysql_close($connection);
-        if(isset($_POST['select_course'])){
-            $page = $_POST['select_course'];
+    if(isset($_POST['select_course'])){
+        $page = $_POST['select_course'];
+        foreach ($table as $option) {
+            if($option['c_id'] === $page){
+                $page_name = $option['course_name'];
+            }
         }
     }
 ?>
@@ -34,15 +66,32 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-      <meta charset="utf-8" />
-	<!-- Bootstrap Styles-->
+    <meta charset="utf-8" />
+    <!-- Bootstrap Styles-->
     <link href="../dashboard/assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
     <link href="../dashboard/assets/css/font-awesome.css" rel="stylesheet" />
         <!-- Custom Styles-->
     <link href="../dashboard/assets/css/custom-styles.css" rel="stylesheet" />
      <!-- Google Fonts-->
-   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+    <script type="text/javascript">
+        function handleChange() {
+            //alert("HELLLLO OOO");
+            //document.getElementById('select_course')
+            //$("#course_id").val($("#select_course").val());
+            //alert($("#select_course").val());
+            document.getElementById('myform1').submit();
+        }
+        function setValues() {
+            //alert("HELLLLO OOO");
+            //document.getElementById('select_course')
+            $("#course_id").val($("#select_course").val());
+            //alert($("#select_course").val());
+            document.getElementById('myform22').submit();
+        }
+   </script>
 </head>
 <body>
     <div id="wrapper">
@@ -271,28 +320,24 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
 
-                    <li>
+                     <li>
                         <a href="index.php"><i class="fa fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="ui-elements.php" class="active-menu"><i class="fa fa-desktop"></i> Chat Forum</a>
+                        <a class="active-menu" href="ui-elements.php"><i class="fa fa-desktop"></i> Chat Forum</a>
                     </li>
-					<li>
-                        <a href="chart.php"><i class="fa fa-bar-chart-o"></i> Charts</a>
-                    </li>
+                 
                     <li>
                         <a href="../wdCalendar/sample.php"><i class="fa fa-qrcode"></i> Event Calender</a>
                     </li>
                     
                     <li>
-                        <a href="table.php"><i class="fa fa-table"></i> Responsive Tables</a>
+                        <a href="form.php"><i class="fa fa-edit"></i> Upload Content </a>
                     </li>
                     <li>
-                        <a href="form.php"><i class="fa fa-edit"></i> Forms </a>
+                        <a href="course.php"><i class="fa fa-fw fa-file"></i> Course Teaching</a>
                     </li>
-                    <li>
-                        <a href="course.php"><i class="fa fa-fw fa-file"></i> Courses Teaching</a>
-                    </li>
+
                 </ul>
 
             </div>
@@ -301,64 +346,57 @@
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper" >
             <div id="page-inner">
-			 <div class="row">
+             <div class="row">
                     <div class="col-md-12">
                         <h1 class="page-header">
                             Course Query Forum
                         </h1>
-                        <form name="myform1" action="" method="post">
+                        <form name="myform1" id="myform1" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                         <label>Selects Course</label>
-                            <select name="select_course" id="select_course" onchange="this.form.submit()">
+                            <select name="select_course" id="select_course" onchange="handleChange()">
                                 
-                                <?php 
-                                  $connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
-                                  mysql_select_db('dbms');
-                                  $table=mysql_query('SELECT * FROM courset where courseID');
-                                  if($page==1){
-                                      while($row=mysql_fetch_array($table))
-                                      {
-                                          $number=$row['id'];
-                                          $smark=$row['facID'];
-                                          $smark1=$row['courseID'];
-                                          echo "<option>" . $smark1 . "</option>" ;
-                                      }  
+                                <?php
+                                if(count($table) > 0){
+                                    $cname_id = $page_name . "-[" . $page . "]";
+                                    echo '<option value="' . $page . '">'. $cname_id . '</option>';
+                                  foreach($table as $option)
+                                  {
+                                    if($option['c_id'] === $page){
+                                        $nouse = 0;
                                     }
                                     else{
-                                        echo "<option>" . $page . "</option>" ;
-                                        while($row=mysql_fetch_array($table))
-                                          {
-                                              $number=$row['id'];
-                                              $smark=$row['facID'];
-                                              $smark1=$row['courseID'];
-                                              if($smark1 != $page)
-                                                echo "<option>" . $smark1 . "</option>" ;
-                                          }
-                                    }
-                                    mysql_close();
+                                      $cname_id = $option['course_name'] . "-[" . $option['c_id'] . "]";
+                                      echo '<option value="' . $option['c_id'] . '">'. $cname_id . '</option>';
+                                        }
+                                        }
+                                    }  
                                 ?>
                             </select>
                         </form>
                     </div>
                 </div> 
                  <!-- /. ROW  -->
-				 
-				
-			<div class="row">
+                 
+                
+            <div class="row">
 
-			  <div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-				 Queries And Suggestions
-				</div> 
+              <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                 Queries And Suggestions
+                </div> 
                     <?php 
                       $connection = mysql_connect($dbhost, $dbuser, $dbpass); //The Blank string is the password
                       mysql_select_db('dbms');
 
-                      $table=mysql_query('SELECT * FROM coursequery where courseID=' . $page);
-                      while($row=mysql_fetch_array($table))
+
+                      $txer=mysql_query('SELECT * FROM coursequery where c_id =' . $page);
+
+                      while($row=mysql_fetch_array($txer))
                       {
-                          $number=$row['courseID'];
-                          $smark=$row['userID'];
+
+                          $number=$row['c_id'];
+                          $smark=$row['mem_id'];
                           $smark1=$row['comment'];
                           $smark2=$row['pertype'];
                           echo "<div class='panel-body'>";
@@ -372,28 +410,32 @@
                       }
                     mysql_close();
                     ?>  
-				</div>
-			</div>						
-				</div>								
-									
-				  <div class="row">
+                </div>
+            </div>                      
+                </div>                              
+                                    
+                  <div class="row">
                     <div class="col-md-6">
                         <div class="panel panel-default">
                         <div class="panel-heading">
                             Ask or Answer Query
                         </div>
 
-                       <form role="form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+                       <form name="myform22" id="myform22" role="form" action="" method="post" enctype="multipart/form-data">
                         <div class="panel-body">
-                    
+                            <input type="hidden" id="course_id" name="course_id" />
+                            <input type="hidden" id="course_name" name="course_name" />
                             <textarea id="area3" name="area3" placeholder="Comment" cols="50" rows="5"></textarea>
-                            <button type="submit" class="btn btn-default" name="submit">Submit</button>
+                            <input type='button' value='Submit form' onClick='setValues()' />
+                            <!-- <button type="submit" class="btn btn-default" name="submit">Submit</button> -->
                         </div>
                         </form>
+
+
                     </div>
-               			
+                        
                      <!-- End Modals-->
-				</div>
+                </div>
              <!-- /. PAGE INNER  -->
             </div>
          <!-- /. PAGE WRAPPER  -->

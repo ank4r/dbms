@@ -254,6 +254,9 @@
                         <a href="courses.php"><i class="fa fa-book"></i> My Courses</a>
                     </li>
                     <li>
+                        <a href="enroll.php"><i class="fa fa-plus-square"></i> Enroll </a>
+                    </li>
+                    <li>
                         <a href="ui-elements.php"><i class="fa fa-desktop"></i> UI Elements</a>
                     </li>
 					<li>

@@ -1,5 +1,15 @@
 <?php
    include('../login/session.php');
+   include('../login/helper_modules.php');
+
+/*
+   ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    */
+   if($_SESSION['role'] == "Student")
+        {}
+    else exit();
 
 ?>
 
@@ -8,7 +18,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Free Bootstrap HTML5 Admin Template : Master</title>
+    <title> View your courses </title>
 	<!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
@@ -252,6 +262,17 @@
                         <a class="active-menu" href="courses.php"><i class="fa fa-book"></i> My Courses</a>
                     </li>
                     <li>
+                        <a href="enroll.php"><i class="fa fa-plus-square"></i> Enroll </a>
+                    </li>
+                    <li>
+                        <a href="forum.php"><i class="fa fa-comments"></i> Chat Forum </a>
+                    </li>
+                     <li>
+                        <a href="../wdCalendar/sample.php"><i class="fa fa-calendar"></i> Events Calendar </a>
+                    </li>
+
+                    <?php /*
+                    <li>
                         <a href="ui-elements.php"><i class="fa fa-desktop"></i> UI Elements</a>
                     </li>
 					<li>
@@ -299,6 +320,8 @@
                     <li>
                         <a href="empty.php"><i class="fa fa-fw fa-file"></i> Empty Page</a>
                     </li>
+
+                    */ ?>
                 </ul>
 
             </div>
@@ -308,7 +331,6 @@
         <div id="page-wrapper" >
             <div id="page-inner">
 
-
              <div class="row">
                 <div class="col-md-12 col-sm-12">
                     <div class="panel panel-default">
@@ -316,57 +338,366 @@
                            <h1> Enrolled Courses </h1>
                         </div>
 
-
-
                         <div class="panel-body">
 
-                             
+                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+                             <?php
+                             //   echo '<h1> Received Choice : '.$_POST['categ_choice'].' </h1>';
+                             $mem_id = $_SESSION['login_id'];
+
+                               $stud_id = $_SESSION['role_id'];
+                                     //  echo "stud id : ".$stud_id."<br>";
+
+                            $courses_ARRAY = getAllEnrolledCoursesofStudent($stud_id);
+                            //$_SESSION['courses_array'] = $courses_ARRAY;
+                          
+
+                              if(isset($_POST['categ_choice']))
+                              {
+                                    unset($_SESSION['course_choice']);
+                                    unset($_SESSION['name_of_chosen_course']);
+                                    unset($_SESSION['name_of_chosen_topic']);
+                                    unset($_SESSION['topic_choice']);
+                                    unset($_SESSION['name_of_chosen_subtopic']);
+                                    unset($_SESSION['subtopic_choice']);
+
+                                     $course_category_selected = $_POST['categ_choice'];
+                                     $_SESSION['categ_choice'] = $course_category_selected;
+                                    // echo "mem id : ".$mem_id."<br>";
+        /*
+                                       foreach($GLOBALS['courses_ARRAY'] as $c)
+                                       {
+                                        echo "Course ID : ".$c->c_id." <br> " . "Course Name : ". $c->c_name. " <br> " ;
+                                       }
+                                */
+                           }
+
+                             if(isset($_POST['course_choice']))
+                              {
+                                    $_SESSION['course_choice'] = $_POST['course_choice'];
+                                    $_SESSION['name_of_chosen_course'] = $_POST['name_of_chosen_course'];
+
+                                    unset($_SESSION['name_of_chosen_topic']);
+                                    unset($_SESSION['topic_choice']);
+                                    unset($_SESSION['name_of_chosen_subtopic']);
+                                    unset($_SESSION['subtopic_choice']);
+
+                                     $course_category_selected = $_SESSION['categ_choice'];
+                                     $course_selected = $_SESSION['name_of_chosen_course'];
+                                     $id_course_selected = $_SESSION['course_choice'];
+
+                                     // echo "Selected Course Category: ".$course_category_selected;
+                                     // echo "Selected Course : ".$course_selected." id : ".$id_course_selected;
+                                    // echo "mem id : ".$mem_id."<br>";
+                                       $stud_id = $_SESSION['role_id'];
+                                     //  echo "stud id : ".$stud_id."<br>";
+
+                                      $topics_ARRAY = get_topics_for_course($id_course_selected);
+                                      $_SESSION['topics_array'] = $topics_ARRAY;
+
+                                     // $subtopics_ARRAY = array();
+                                    
+                                        $j =0;
+                                       foreach($GLOBALS['topics_ARRAY'] as $t)
+                                       {
+                                       // echo "Topics ID : ".$t['tid']." <br> " . "Topic Name : ". $t['tname']. " <br> " ;
+                                      //  $subtopics_ARRAY[$j] = get_subtopics_for_topic($t['tid']);
+
+                                             /*   foreach($subtopics_ARRAY[$j] as $s)
+                                               {
+                                               // echo "Subtopics ID : ".$s['sid']." <br> " . "Subtopic Name : ". $s['sname']. " <br> " ;
+                                                
+                                               }*/
+
+                                        $j = $j + 1;
+                                       }
+                                      // $_SESSION['subtopics_array'] = $subtopics_ARRAY;
+                                       
+                           }
+
+                           if(isset($_POST['name_of_chosen_topic']))
+                           {
+                                unset($_SESSION['name_of_chosen_subtopic']);
+                                unset($_SESSION['subtopic_choice']);
+
+                                $_SESSION['name_of_chosen_topic'] = $_POST['name_of_chosen_topic'];
+
+                                $id_course_selected = $_SESSION['course_choice'];
+                                $topics_ARRAY = get_topics_for_course($id_course_selected);
+                                    
+                                       foreach($GLOBALS['topics_ARRAY'] as $t)
+                                       {
+                                        if($t['tname'] == $_SESSION['name_of_chosen_topic'])
+                                        {
+                                            $_SESSION['topic_choice'] = $t['tid'];
+                                           // echo "ID of topic sellected : " . $_SESSION['topic_choice']."<br><br>";
+                                        }
+                                       // echo "Topics ID : ".$t['tid']." <br> " . "Topic Name : ". $t['tname']. " <br> " ;
+                                      
+
+                                       }
+
+                                         $subtopics_ARRAY = get_subtopics_for_topic($_SESSION['topic_choice']);
+
+                                                foreach($GLOBALS['subtopics_ARRAY'] as $s)
+                                               {
+                                               // echo "Subtopics ID : ".$s['sid']." <br> " . "Subtopic Name : ". $s['sname']. " <br> " ;
+                                                
+                                               }
+
+
+                                       $_SESSION['subtopics_array'] = $subtopics_ARRAY;
+
+                            }
+
+                        if(isset($_POST['name_of_chosen_subtopic']))
+                           {
+                                $_SESSION['name_of_chosen_subtopic'] = $_POST['name_of_chosen_subtopic'];
+
+                                $id_course_selected = $_SESSION['course_choice'];
+                                $topics_ARRAY = get_topics_for_course($id_course_selected);
+                                    
+                                       foreach($GLOBALS['topics_ARRAY'] as $t)
+                                       {
+                                        if($t['tname'] == $_SESSION['name_of_chosen_topic'])
+                                        {
+                                            $_SESSION['topic_choice'] = $t['tid'];
+                                           // echo "ID of topic sellected : " . $_SESSION['topic_choice']."<br><br>";
+                                        }
+                                       // echo "Topics ID : ".$t['tid']." <br> " . "Topic Name : ". $t['tname']. " <br> " ;
+                                      
+
+                                       }
+
+                                         $subtopics_ARRAY = get_subtopics_for_topic($_SESSION['topic_choice']);
+
+                                                foreach($GLOBALS['subtopics_ARRAY'] as $s)
+                                               {
+                                               // echo "Subtopics ID : ".$s['sid']." <br> " . "Subtopic Name : ". $s['sname']. " <br> " ;
+                                                    if($s['sname'] == $_SESSION['name_of_chosen_subtopic'])
+                                                    {
+                                                        $_SESSION['subtopic_choice'] = $s['sid'];
+                                                        //echo "ID of subtopic selected : " . $_SESSION['subtopic_choice']."<br><br>";
+                                                    }
+                                               }
+
+
+                                       $_SESSION['subtopics_array'] = $subtopics_ARRAY;
+
+                            }
+
+                            if(isset($_SESSION['categ_choice']))
+                            {
+                               // echo "YES !";
+                            }
+                            if(isset($_SESSION['course_choice']))
+                            {
+                               // echo "YES !";
+                                $id_course_selected = $_SESSION['course_choice'];
+                                $topics_ARRAY = get_topics_for_course($id_course_selected);
+
+                            }
+                            if(isset($_SESSION['course_choice']) && isset($_SESSION['topic_choice']))
+                            {
+                               // echo "YES !";
+                                $id_course_selected = $_SESSION['course_choice'];
+                                $topics_ARRAY = get_topics_for_course($id_course_selected);
+
+                                $subtopics_ARRAY = get_subtopics_for_topic($_SESSION['topic_choice']);
+
+                            }
+                            if(isset($_SESSION['subtopic_choice']))
+                            {
+                               // echo "YES !";
+                                $id_course_selected = $_SESSION['course_choice'];
+                                $topics_ARRAY = get_topics_for_course($id_course_selected);
+                                
+                                $subtopics_ARRAY = get_subtopics_for_topic($_SESSION['topic_choice']);
+
+                            }
+                             ?>
+
+
+                               <form id="categ_form" action="<?php $_PHP_SELF ?>" method="post">
+                                              <input type="hidden" id="categ_select" name='categ_choice'>
+                                          </form>
+
+                            <form id="course_form" action="<?php $_PHP_SELF ?>" method="post">
+                                              <input type="hidden" id="course_select" name='course_choice'>
+                                              <input type="hidden" id="name_of_selected_course" name = 'name_of_chosen_course'>
+                                          </form>
+
+                             <form id="topic_form" action="<?php $_PHP_SELF ?>" method="post">
+                                              <input type="hidden" id="name_of_selected_topic" name = 'name_of_chosen_topic'>
+                                          </form>
+
+                                <form id="subtopic_form" action="<?php $_PHP_SELF ?>" method="post">
+                                              <input type="hidden" id="name_of_selected_subtopic" name = 'name_of_chosen_subtopic'>
+                                          </form>
+
                                        <div style="margin-top: 5px;">
                                             <h4> Choose Course Category : </h4>  
                                             <div class="btn-group">
-                                              <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Choose Course Category <span class="caret"></span></button>
-                                              <ul class="dropdown-menu">
-                                                <li><a href="#">Mathematics</a></li>
-                                                <li><a href="#">Physics</a></li>
-                                                <li><a href="#">Chemistry</a></li>
-                                                <li><a href="#">English</a></li>
-                                                <li><a href="#">Computer Science</a></li>
+                                           
+                                              <button id = "course_category" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+
+                                              <?php
+                                              if(!isset($_SESSION['categ_choice']))
+                                                 echo 'Choose Course Category';
+                                             else
+                                                echo $_SESSION['categ_choice'];
+                                              ?>
+
+                                              <span class="caret"></span></button>
+
+                                              <ul id= "categ_dropdown" class="dropdown-menu">
+
+                                              <?php
+                                             /* SET(\'Mathematics\',\'General Sciences\',\'Biology\',\'Physics\',\'Chemistry\',\'Social Sciences\',\'Miscellaneous\',\'Languages\',\'Computer Science\')*/
+                                                $age = array("Mathematics","General Sciences","Biology","Physics","Chemistry","Social Sciences","Miscellaneous","Languages","Computer Science");
+
+                                                foreach($age as $x) {
+                                                    echo "<li><a href=\"#\">".$x."</a></li> ";
+                                                }
+                                              ?>
+
+                                              <script type='text/javascript'>
+
+                                             $("#categ_dropdown > li").click(function() {
+                                                   $("#course_category").text($(this).text()); 
+                                                      $("#categ_select").val($(this).find("a").text());
+                                                    document.getElementById('categ_form').submit();
+                                                });
+
+                                                </script>
                                                 
-                                                <li class="divider"></li>
-                                                <li><a href="#">Any other</a></li>
+                                            
                                               </ul>
                                             </div>
                                             <h4> Choose a Course -> Topic -> SubTopic : </h4>  
                                             <div style="margin:5px;" class="btn-group">
-                                              <button data-toggle="dropdown" class="btn btn-danger dropdown-toggle"> Choose Course <span class="caret"></span></button>
-                                              <ul class="dropdown-menu">
-                                                <li><a href="#">Action</a></li>
-                                                <li><a href="#">Another action</a></li>
-                                                <li><a href="#">Something else here</a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#">Separated link</a></li>
+                                              <button id="course_options" data-toggle="dropdown" class="btn btn-danger dropdown-toggle"> 
+
+                                                <?php
+                                              if(!isset($_SESSION['name_of_chosen_course']) || !isset($_SESSION['categ_choice']))
+                                                 echo 'Choose Course';
+                                             else
+                                                echo $_SESSION['name_of_chosen_course'];
+                                              ?>
+
+                                               <span class="caret"></span></button>
+                                              <ul id="course_dropdown" class="dropdown-menu">
+
+                                          <?php
+                                            if(isset($GLOBALS['courses_ARRAY'])){
+
+                                                        foreach($GLOBALS['courses_ARRAY'] as $x) {
+                                                            
+                                                            $pos = strpos($x->c_cat,$_SESSION['categ_choice']);
+                                                            if($pos !== false)
+                                                            echo "<li><a href=\"#\">". $x->c_name. " (ID:". $x->c_id.")"."</a></li> ";
+                                                        }
+                                            }
+                                          ?>
+
+                                          <script type='text/javascript'>
+
+                                             $("#course_dropdown > li").click(function() {
+                                               
+                                                    var parse_text = $(this).text();
+                                                    var parsed_text_1 = parse_text.split(" \(");
+                                                    var selected_course_name = parsed_text_1[0];
+                                                    var parsed_text_2 = parsed_text_1[1].split(":");
+                                                    var parsed_text_3 = parsed_text_2[1].split("\)");
+                                                    var selected_course_id = parsed_text_3[0];
+
+                                                // document.write( "name : "+ selected_course_name+" id : "+ selected_course_id );
+
+                                                      $("#course_select").val(selected_course_id);
+                                                      $("#course_options").text(selected_course_name);
+                                                       $("#name_of_selected_course").val(selected_course_name);
+                                                    document.getElementById('course_form').submit();
+                                                });
+
+                                                </script>
+
+                                                
                                               </ul>
                                             </div>
+
                                            <div style="margin:5px;" class="btn-group">
-                                              <button data-toggle="dropdown" class="btn btn-warning dropdown-toggle"> Choose Topic <span class="caret"></span></button>
-                                              <ul class="dropdown-menu">
-                                                <li><a href="#">Action</a></li>
-                                                <li><a href="#">Another action</a></li>
-                                                <li><a href="#">Something else here</a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#">Separated link</a></li>
+                                              <button id="topic_options" data-toggle="dropdown" class="btn btn-warning dropdown-toggle"> 
+
+                                                    <?php
+                                                      if(!isset($_SESSION['name_of_chosen_topic']) || !isset($_SESSION['name_of_chosen_course']) || !isset($_SESSION['categ_choice']))
+                                                         echo 'Choose Topic';
+                                                     else
+                                                        echo $_SESSION['name_of_chosen_topic'];
+                                                      ?>
+
+                                               <span class="caret"></span></button>
+                                              <ul id="topic_dropdown" class="dropdown-menu">
+
+                                 
+                                              <?php
+                                              if(isset($GLOBALS['topics_ARRAY'])){
+
+                                                foreach($GLOBALS['topics_ARRAY'] as $t)
+                                                   {
+                                                   // echo "Topics ID : ".$t['tid']." <br> " . "Topic Name : ". $t['tname']. " <br> " ;
+                                                      echo  "<li><a href='#'>". $t['tname']."</a></li>";
+                                                   }
+                                                
+                                                }
+                                                ?>
+                                                
+                                                <script type="text/javascript">
+                                                 $("#topic_dropdown > li").click(function() {
+                                                   $("#topic_options").text($(this).text()); 
+                                                      $("#name_of_selected_topic").val($(this).find("a").text());
+                                                    document.getElementById('topic_form').submit();
+                                                });
+                                                </script>
+
+
                                               </ul>
                                             </div>
                                          
                                                
-                                                <div class="btn-group">
-                                              <button data-toggle="dropdown" class="btn btn-success dropdown-toggle"> Choose SubTopic <span class="caret"></span></button>
-                                              <ul class="dropdown-menu">
-                                                <li><a href="#">Action</a></li>
-                                                <li><a href="#">Another action</a></li>
-                                                <li><a href="#">Something else here</a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#">Separated link</a></li>
+                                             <div style="margin:5px;" class="btn-group">
+                                              <button id="subtopic_options" data-toggle="dropdown" class="btn btn-success dropdown-toggle"> 
+
+                                                <?php
+                                                      if(!isset($_SESSION['name_of_chosen_subtopic']) || !isset($_SESSION['name_of_chosen_topic']) || !isset($_SESSION['name_of_chosen_course']) || !isset($_SESSION['categ_choice']))
+                                                         echo 'Choose Subtopic';
+                                                     else
+                                                        echo $_SESSION['name_of_chosen_subtopic'];
+                                                      ?>
+
+                                               <span class="caret"></span></button>
+                                              <ul id = "subtopic_dropdown" class="dropdown-menu">
+
+                                                <?php
+                                              if(isset($GLOBALS['subtopics_ARRAY'])){
+
+                                                foreach($GLOBALS['subtopics_ARRAY'] as $s)
+                                                   {
+                                                   // echo "Topics ID : ".$t['tid']." <br> " . "Topic Name : ". $t['tname']. " <br> " ;
+                                                      echo  "<li><a href='#'>". $s['sname']."</a></li>";
+                                                   }
+                                                
+                                                }
+                                                ?>
+
+                                                 <script type="text/javascript">
+                                                 $("#subtopic_dropdown > li").click(function() {
+                                                   $("#subtopic_options").text($(this).text()); 
+                                                      $("#name_of_selected_subtopic").val($(this).find("a").text());
+                                                    document.getElementById('subtopic_form').submit();
+                                                });
+                                                </script>
+                                               
                                               </ul>
                                             </div>
                                             
@@ -408,25 +739,110 @@
 
                                     <br><br>
                                     <div style="padding-top: 90px;" class="panel-body">
-                                        <h3> COURSE :  </h3>
+                                        <h3> COURSE : <small style=" color:blue;">
+                                        <?php  
+
+                                         foreach ($GLOBALS['courses_ARRAY'] as $crs) 
+                                         {
+                                           // echo $crs->c_id;
+                                            if($crs->c_id == $_SESSION['course_choice'])
+                                            {
+                                                echo $crs->c_name;
+                                            }
+
+                                        }
+                                         ?> </small>
+                                          </h3>
                                         <br>
-                                        <h3> Category :  </h3>
+                                        <h3> Category : <small style=" color:blue;"> 
+                                        <?php 
+                                         foreach ($GLOBALS['courses_ARRAY'] as $crs) {
+                                            if($crs->c_id == $_SESSION['course_choice'])
+                                            {
+                                                echo $crs->c_cat;
+                                            }
+
+                                        } ?> </small></h3>
                                         <br>
-                                        <h3> Course Air Date :  </h3>
+                                        <h3> Course Air Date : <small style=" color:blue;">
+                                        <?php 
+                                         foreach ($GLOBALS['courses_ARRAY'] as $crs) {
+                                            if($crs->c_id == $_SESSION['course_choice'])
+                                            {
+                                                echo $crs->c_air_date;
+                                            }
+
+                                        } ?> </small></h3>
                                         <br>
-                                        <h3> Course Administrator :  </h3>
+                                        <h3> Course Administrator : <small style=" color:blue;">
+                                         <?php 
+                                         foreach ($GLOBALS['courses_ARRAY'] as $crs) {
+                                            if($crs->c_id == $_SESSION['course_choice'])
+                                            {
+                                                $row = get_member_name($crs->c_admin);
+                                                echo $row['fname']." ".$row['lname'];
+                                            }
+
+                                        } ?> </small>
+                                        </h3>
                                         <br>
-                                        <h3> Contributions by following Professors :  </h3>
+                                        <h3> Contributions by following Professors :  <small style=" color:blue;">
+                                        <?php
+                                         if(isset($_SESSION['course_choice']))
+                                         {
+                                            $id_course = $_SESSION['course_choice'];
+                                              $faculty_names = get_All_Faculty_for_Course($id_course);
+
+                                              foreach ($faculty_names as $fac) {
+                                                  echo $fac." , ";
+                                              }
+                                      }
+                                        ?>
+
+                                        </small></h3>
                                         <br>
-                                        <h3> No. of students enrolled :  </h3>
+                                        <h3> No. of students enrolled :  <small style=" color:blue;">
+                                        <?php
+                                        if(isset($_SESSION['course_choice']))
+                                           echo get_student_Count_for_Course($_SESSION['course_choice']);
+                                        ?>
+
+                                        </small></h3>
                                         <br>
                                         <h3> Brief Overview about the Course </h3>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                        <p style=" color:blue;"> <?php
+                                         foreach ($GLOBALS['courses_ARRAY'] as $crs) {
+                                            if($crs->c_id == $_SESSION['course_choice'])
+                                            {
+                                                echo $crs->c_brief;
+                                            }
 
-                                        <h3> Course Topics </h3>
+                                        } ?> </p> 
+
+                                        <h3> Course Structure </h3> 
                                         
-                                        <ul style="padding-top: 20px;" class="nav nav-list tree">
+                                        <ul style="color:blue; padding-top: 20px;" class="nav nav-list tree">
 
+                                    <?php
+                                              $j =0;
+                                       foreach($GLOBALS['topics_ARRAY'] as $t)
+                                       {
+                                       // echo "Topics ID : ".$t['tid']." <br> " . "Topic Name : ". $t['tname']. " <br> " ;
+                                        
+                                        echo "<li>".$t['tname']."<ul class='nav-second-level'> ";
+                                            $subtopics_ARRAY[$j] = get_subtopics_for_topic($t['tid']);
+                                                foreach($subtopics_ARRAY[$j] as $s)
+                                               {
+                                               // echo "Subtopics ID : ".$s['sid']." <br> " . "Subtopic Name : ". $s['sname']. " <br> " ;
+                                                    echo "<li>". $s['sname'] ."</li>";
+                                               }
+                                        echo "</ul> </li>";
+
+                                        $j = $j + 1;
+                                       }
+                                    
+
+                                    /*
                                             <li> Topic1 
                                                 <ul class="nav-second-level"> 
                                                     <li>  SubTopic1  </li>
@@ -463,6 +879,9 @@
                                                 </ul>
                                             </li>
 
+                                            */
+                                            ?>
+
                                         </ul>
                                     </div>
 
@@ -478,12 +897,16 @@
                                                             </div>
                                                             <div class="panel-body">
                                                                 <div class="panel-group" id="accordion">
+
+                                                          <?php /*
                                                                     <div class="panel panel-default">
+
                                                                         <div class="panel-heading">
                                                                             <h4 class="panel-title">
                                                                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed"> Lecture #1</a>
                                                                             </h4>
                                                                         </div>
+
                                                                         <div id="collapseOne" class="panel-collapse collapse" style="height: 0px;">
                                                                             <div class="panel-body">
                                                                                 Batman v Superman Dawn of Justice Official Final Trailer (2016) - Ben Affleck Superhero Movie HD
@@ -506,6 +929,8 @@
 
                                                                         </div>
                                                                     </div>
+
+
                                                                     <div class="panel panel-default">
                                                                         <div class="panel-heading">
                                                                             <h4 class="panel-title">
@@ -530,6 +955,7 @@
 
                                                                         </div>
                                                                     </div>
+
                                                                     <div class="panel panel-default">
                                                                         <div class="panel-heading">
                                                                             <h4 class="panel-title">
@@ -553,7 +979,54 @@
                                                                             </div>
 
                                                                         </div>
-                                                                    </div>
+                                                                    </div> 
+                                                                    */
+
+                                                  
+                                                    if(isset($_SESSION['subtopic_choice']))
+                                                    {
+                                                        $lecture_ARRAY = getAllEnrolledLecturesofSubtopic($_SESSION['subtopic_choice']);
+
+                                                        foreach ($lecture_ARRAY as $la) {
+
+                                                                $fac_name = getFacultyName($la->lec_fac_id);
+
+                                                                echo    "<div class='panel panel-default'>
+
+                                                                        <div class='panel-heading'>
+                                                                            <h4 class='panel-title'>
+                                                                                <a data-toggle='collapse' data-parent='#accordion' href='#collapse_". $la->lec_id ."' class='collapsed'> <h3> Lecture #".$la->lec_id." : <small style='color:blue;'> ". $la->lec_name . "</small> by Faculty : <small style='color:blue;'> " . $fac_name . "</small> Dated : <small style='color:blue;'> ". $la->lec_rel_date." </small> </h3> </a>
+                                                                            </h4>
+                                                                        </div>
+
+                                                                        <div id='collapse_".$la->lec_id."' class='panel-collapse collapse' style='height: 0px;'>
+                                                                            <div class='panel-body'>
+                                                                               <h3> ". $la->lec_notes ." </h3>
+
+                                                                                
+                                                                            </div>
+
+                                                                            <div class='row'>
+                                                                                <iframe style='padding-left: 37px;' width='560' height='315' src='". $la->vdl."' frameborder='0' allowfullscreen></iframe>
+
+                                                                                 <iframe style='padding-left: 50px;' src='". 
+                                                                                   "../lecture/merged.pdf"."' height='315' 
+                                                                                width='700' frameborder='0'></iframe>
+                                                                                 
+                                                                                </object>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>";
+
+                                                            
+                                                        }
+
+                                                            
+                                                    }
+                                                    ?>
+
+
                                                                 </div>
                                                             </div>
                                                         </div>

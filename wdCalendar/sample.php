@@ -1,6 +1,10 @@
 <?php
     include('../login/session.php');
     include('../login/info.php');
+   ini_set('display_errors', 1);
+   ini_set('display_startup_errors', 1);
+   error_reporting(E_ALL);
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -14,8 +18,6 @@
     <link href="../dashboard/assets/css/custom-styles.css" rel="stylesheet" />
      <!-- Google Fonts-->
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-
-
 
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <link href="css/dailog.css" rel="stylesheet" type="text/css" />
@@ -441,7 +443,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="../login/logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -455,27 +457,65 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a href="../faculty/index.php"><i class="fa fa-dashboard"></i> Dashboard</a>
+
+                     <?php 
+                      echo  "<a href= ";   
+
+                      if($_SESSION['role'] == "Faculty") 
+                        echo "../faculty/index.php"; 
+                    else if($_SESSION['role'] == "Student") 
+                        echo "../dashboard/index.php";
+                    else if($_SESSION['role'] == "Admin") 
+                        echo "../dashboard_admin/index.php"; 
+
+                           echo "><i class='fa fa-dashboard'></i> Dashboard</a>";
+                      ?>
+
+                    </li>
+
+            <?php if($_SESSION['role']=="Faculty")
+                    echo
+
+                    "<li>
+                        <a href='../faculty/ui-elements.php'><i class='fa fa-desktop'></i> Chat Forum</a>
                     </li>
                     <li>
-                        <a href="../faculty/ui-elements.php"><i class="fa fa-desktop"></i> Chat Forum</a>
+                        <a href='../faculty/chart.php'><i class='fa fa-bar-chart-o'></i> Charts</a>
                     </li>
                     <li>
-                        <a href="../faculty/chart.php"><i class="fa fa-bar-chart-o"></i> Charts</a>
-                    </li>
-                    <li>
-                        <a href="sample.php" class="active-menu"><i class="fa fa-qrcode"></i> Event Calender</a>
+                        <a href='sample.php' class='active-menu'><i class='fa fa-calendar'></i> Event Calender</a>
                     </li>
                     
                     <li>
-                        <a href="../faculty/table.php"><i class="fa fa-table"></i> Responsive Tables</a>
+                        <a href='../faculty/table.php'><i class='fa fa-table'></i> Responsive Tables</a>
                     </li>
                     <li>
-                        <a href="../faculty/form.php"><i class="fa fa-edit"></i> Forms </a>
+                        <a href='../faculty/form.php'><i class='fa fa-edit'></i> Forms </a> 
                     </li>
                     <li>
-                        <a href="course.php"><i class="fa fa-fw fa-file"></i> Courses Teaching</a>
+                        <a href='../faculty/course.php'><i class='fa fa-fw fa-file'></i> Courses Teaching</a>
+                    </li>";
+
+                    else if($_SESSION['role']=="Student")
+                    echo 
+                        "   
+                        <li>
+                        <a href='../dashboard/courses.php'><i class='fa fa-book'></i> My Courses</a>
                     </li>
+                    <li>
+                        <a href='../dashboard/enroll.php'><i class='fa fa-plus-square'></i> Enroll </a>
+                    </li>
+                     <li>
+                        <a class='active-menu' href='sample.php'><i class='fa fa-calendar'></i> Events Calendar </a>
+                    </li>
+
+                        ";
+
+
+
+            ?>
+
+
                 </ul>
 
             </div>
@@ -490,12 +530,14 @@
             </div>          
             
             <div id="caltoolbar" class="ctoolbar">
-              <div id="faddbtn" class="fbutton">
-                <div><span title='Click to Create New Event' class="addcal">
-
+<?php if($_SESSION['role'] === "Faculty")
+          echo "<div id='faddbtn' class='fbutton'>
+                <div><span title='Click to Create New Event' class='addcal'>
                 New Event                
                 </span></div>
-            </div>
+            </div>";
+?>
+
             <div class="btnseparator"></div>
              <div id="showtodaybtn" class="fbutton">
                 <div><span title='Click to back to today ' class="showtoday">
@@ -557,5 +599,13 @@
     </div> 
      
   </div>
+   <!-- jQuery Js -->
+    
+      <!-- Bootstrap Js -->
+    <script src="../dashboard/assets/js/bootstrap.min.js"></script>
+    <!-- Metis Menu Js -->
+    <script src="../dashboard/assets/js/jquery.metisMenu.js"></script>
+      <!-- Custom Js -->
+    <script src="../dashboard/assets/js/custom-scripts.js"></script>
 </body>
 </html>

@@ -1,8 +1,5 @@
 ﻿<?php
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting(E_ALL);
-    include('../login/session.php');
+   include('../login/session.php');
 
 ?>
 
@@ -253,6 +250,9 @@
                     </li>
                      <li>
                         <a href="courses.php"><i class="fa fa-book"></i> My Courses</a>
+                    </li>
+                    <li>
+                        <a href="enroll.php"><i class="fa fa-plus-square"></i> Enroll </a>
                     </li>
                     <li>
                         <a href="ui-elements.php"><i class="fa fa-desktop"></i> UI Elements</a>

@@ -1,0 +1,97 @@
+INSERT INTO courses SET course_name='BS',course_category='Biology',course_admin=,air_date='2016-08-12',brief_overview='Just learn it'
+
+SELECT topics.top_id,topics.top_name FROM topics INNER JOIN 
+      ( SELECT coursetop.top_id AS tp_id FROM topics INNER JOIN coursetop ON topics.top_id=coursetop.top_id WHERE coursetop.c_id=2 ) AS corid ON topics.top_id=corid.tp_id;
+
+
+
+
+
+<?php
+                                   $danger=get_danger_course($_SESSION['login_id']);
+                                   echo " <div class='row'>";
+                                   foreach ($danger as $value) {
+                                       # code...
+                                    $pf=get_faculty_pending($value['c_id']);
+                                    $af=get_faculty_accepted($value['c_id']);
+                                   echo    "<div class='col-md-4 col-sm-4'>
+                                            <div class='panel panel-danger'>
+                                            <div class='panel-heading'>
+                                                ".$value['c_id']." : ".$value['course_name'].
+                                            "</div>
+                                            <div class='panel-body'>
+                                                <h4>Course Category:</h4>
+                                                <p>".$value['course_category']."</p>
+                                                <br> 
+                                                <h4>Pending Faculty:</h4><br>";
+                                    foreach ($pf as $value1) {
+                                        echo $value1['fname']." ".$value1['lname']." @".$value1['userid'];
+                                        echo "<br>";
+                                    }
+                                    echo        "<p>".$value['brief_overview']."</p>
+                                                </div>
+                                            <div class='panel-footer'>"
+                                                .$value['air_date']."
+                                            </div>
+                                        </div>
+                                        </div>";
+                                    }
+                                    echo "</div>";
+                                   // $warning=get_warning_course($_SESSION['login_id']);
+                                   // echo " <div class='row'>";
+                                   // while($i--){
+                                   // echo    "<div class='col-md-4 col-sm-4'>
+                                   //          <div class='panel panel-warning'>
+                                   //              <div class='panel-heading'>
+                                   //                  Warning Panel
+                                   //              </div>
+                                   //              <div class='panel-body'>
+                                   //                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                                   //              </div>
+                                   //              <div class='panel-footer'>
+                                   //                  Panel Footer
+                                   //              </div>
+                                   //          </div>
+                                   //      </div>";
+                                   //  }
+                                   //  echo "</div>";
+                                   // $normal=get_normal_course($_SESSION['login_id']);
+                                   // echo " <div class='row'>";
+                                   // while($i--){
+                                   // echo "
+                                   // <div class='col-md-4 col-sm-4'>
+                                   // <div class='panel panel-primary'>
+                                   //          <div class='panel-heading'>
+                                   //          Primary Panel
+                                   //      </div>
+                                   //      <div class='panel-body'>
+                                   //          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                                   //      </div>
+                                   //      <div class='panel-footer'>
+                                   //          Panel Footer
+                                   //      </div>
+                                   //  </div>
+                                   //  </div>
+                                   //  ";}
+                                   //  echo "</div>";
+                                   //  $success=get_success_course($_SESSION['login_id']);
+                                   //  echo " <div class='row'>";
+                                   //  while($i--){
+                                   //  echo " 
+                                   //  <div class='col-md-4 col-sm-4'>
+                                   //          <div class='panel panel-success'>
+                                   //              <div class='panel-heading'>
+                                   //                  Success Panel
+                                   //              </div>
+                                   //              <div class='panel-body'>
+                                   //                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tincidunt est vitae ultrices accumsan. Aliquam ornare lacus adipiscing, posuere lectus et, fringilla augue.</p>
+                                   //              </div>
+                                   //              <div class='panel-footer'>
+                                   //                  Panel Footer
+                                   //              </div>
+                                   //          </div>
+                                   //          </div>
+                                   //          ";}
+                                   //      echo "</div>";
+
+                                    ?>
